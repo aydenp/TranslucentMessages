@@ -59,6 +59,14 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
     return [DDTMColours insideChatViewLabelColour];
 }
 
+-(UIColor *)transcriptDeemphasizedTextColor {
+    return [DDTMColours insideChatViewLabelSubtleColour];
+}
+
+-(UIColor *)appTintColor {
+    return [DDTMColours appTintColour];
+}
+
 %end
 
 // MARK: - Nav Controller?
