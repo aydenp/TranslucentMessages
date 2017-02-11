@@ -2,6 +2,10 @@
 
 @implementation DDTMColours
 
++(UIBackgroundStyle)blurStyle {
+    return UIBackgroundStyleBlur;
+}
+
 +(UIColor *)appTintColour {
     return [UIColor colorWithRed:0.38 green:0.68 blue:0.98 alpha:1];
 }

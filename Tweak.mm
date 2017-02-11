@@ -6,15 +6,13 @@
 #import "SMSHeaders.h"
 #import "DDViewControllerPeekDetection.h"
 
-UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
-
 // MARK: - Main Application
 
 %hook SMSApplication
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     BOOL result = %orig;
-    [application _setBackgroundStyle:blurStyle];
+    [application _setBackgroundStyle:[DDTMColours blurStyle]];
     UIWindow *window = MSHookIvar<UIWindow *>(application, "_window");
     [window setBackgroundColor:[UIColor clearColor]];
     [window setOpaque:NO];
@@ -22,7 +20,7 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
 }
 
 -(void)_setBackgroundStyle:(UIBackgroundStyle)style {
-    %orig(blurStyle);
+    %orig([DDTMColours blurStyle]);
 }
 
 %end
@@ -65,6 +63,28 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
 
 -(UIColor *)appTintColor {
     return [DDTMColours appTintColour];
+}
+
+%end
+
+// MARK: - Fix balloon mask
+
+%hook CKBalloonView
+
+-(UIColor *)overlayColor {
+    return [UIColor yellowColor];
+}
+
+-(void)setOverlayColor:(UIColor *)color {
+    %orig([UIColor yellowColor]);
+}
+
+-(BOOL)canUseOpaqueMask {
+    return NO;
+}
+
+-(void)setCanUseOpaqueMask:(BOOL)arg1 {
+    %orig(NO);
 }
 
 %end

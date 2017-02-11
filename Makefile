@@ -1,5 +1,4 @@
 export TARGET=iphone:clang
-GO_EASY_ON_ME = 1
 ARCHS = armv7 arm64
 DEBUG = 1
 

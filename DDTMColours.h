@@ -1,6 +1,8 @@
 #import <UIKit/UIKit.h>
+#import "UIBackgroundStyle.h"
 
 @interface DDTMColours : NSObject
++(UIBackgroundStyle)blurStyle;
 +(UIColor *)appTintColour;
 +(UIColor *)viewBackgroundColour;
 +(UIColor *)cellColour;
