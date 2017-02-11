@@ -105,12 +105,26 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %hook CKConversationListTableView
 
+-(void)layoutSubviews {
+    %orig;
+    [self setSeparatorColor:[self separatorColor]];
+}
+
 -(UIColor *)backgroundColor {
-    return [UIColor clearColor];
+    return [[UIViewController getProperBackgroundColor] colorWithAlphaComponent:0.25];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
-    %orig([UIColor clearColor]);
+    %orig([self backgroundColor]);
+}
+
+-(UIColor *)separatorColor {
+    return [UIColor colorWithWhite:0 alpha:0.2];
+}
+
+-(void)setSeparatorColor:(UIColor *)color {
+    %log;
+    %orig([self separatorColor]);
 }
 
 %end
