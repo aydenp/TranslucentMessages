@@ -4,14 +4,6 @@
 - (void)terminateWithSuccess;
 @end
 
-@interface CKUITheme : NSObject
-@end
-
-@interface CKUIThemeDark : CKUITheme
-@end
-
-static CKUIThemeDark *darkTheme = [[%c(CKUIThemeDark) alloc] init];
-
 typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
     UIBackgroundStyleDefault,
     UIBackgroundStyleTransparent,
@@ -23,20 +15,6 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 @interface UIApplication (UIBackgroundStyle)
 -(void)_setBackgroundStyle:(UIBackgroundStyle)style;
 @end
-
-/*%hook CKUIBehaviorPhone
-- (id)theme {
-	// return isEnabled ? darkTheme : %orig;
-	return darkTheme;
-}
-%end
-
-%hook CKUIBehaviorPad
-- (id)theme {
-	// return isEnabled ? darkTheme : %orig;
-	return darkTheme;
-}
-%end*/
 
 @interface SMSApplication : UIApplication {
     UIWindow* _window;
@@ -58,6 +36,7 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 %hook CKViewController
 
 -(UIView *)view {
+    %log;
     UIView *orig = %orig;
     [orig setBackgroundColor:[UIColor clearColor]];
     [orig setOpaque:NO];
@@ -67,7 +46,7 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 -(void)setView:(UIView *)orig {
     %log;
     [orig setBackgroundColor:[UIColor clearColor]];
-    [orig setOpaque:YES];
+    [orig setOpaque:NO];
     %orig;
 }
 
