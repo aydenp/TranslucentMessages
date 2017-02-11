@@ -47,6 +47,10 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
     return [DDTMColours listSubtitleColour];
 }
 
+-(id)gray_balloonColors {
+    return @[[UIColor colorWithWhite:1 alpha:0.65], [UIColor colorWithWhite:1 alpha:0.5]];
+}
+
 %end
 
 // MARK: - Nav Controller?
