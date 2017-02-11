@@ -4,4 +4,5 @@
 +(UIColor *)viewBackgroundColour;
 +(UIColor *)separatorColour;
 +(UIColor *)selectionColour;
++(UIColor *)listSubtitleColour;
 @end

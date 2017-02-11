@@ -3,7 +3,7 @@
 @implementation DDTMColours
 
 +(UIColor *)viewBackgroundColour {
-    return [UIColor colorWithWhite:1 alpha:0.25];
+    return [UIColor colorWithWhite:1 alpha:0.1];
 }
 
 +(UIColor *)separatorColour {
@@ -12,6 +12,10 @@
 
 +(UIColor *)selectionColour {
     return [UIColor colorWithWhite:1 alpha:0.25];
+}
+
++(UIColor *)listSubtitleColour {
+    return [UIColor colorWithWhite:0 alpha: 0.5];
 }
 
 @end

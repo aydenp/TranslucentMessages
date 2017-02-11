@@ -112,7 +112,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)backgroundColor {
-    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.2];
+    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.35];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
@@ -133,11 +133,22 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %hook CKConversationListCell
 
 -(void)layoutSubviews {
+    // Chevron
     UIImageView *chevronImageView = MSHookIvar<UIImageView *>(self, "_chevronImageView");
+    [chevronImageView setImage:[chevronImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     [chevronImageView setTintColor:[DDTMColours separatorColour]];
+    
+    // Selection Colour
     UIView *selectionView = [[UIView alloc] init];
     [selectionView setBackgroundColor:[DDTMColours selectionColour]];
     [self setSelectedBackgroundView:selectionView];
+    
+    // Time & Subtitle Labels
+    UILabel *summaryLabel = MSHookIvar<UILabel *>(self, "_summaryLabel");
+    UILabel *dateLabel = MSHookIvar<UILabel *>(self, "_dateLabel");
+    [summaryLabel setTextColor:[DDTMColours listSubtitleColour]];
+    [dateLabel setTextColor:[DDTMColours listSubtitleColour]];
+    
     %orig;
 }
 
