@@ -3,11 +3,10 @@
 
 @interface DDTMColours : NSObject
 +(UIBackgroundStyle)blurStyle;
-+(UIColor *)appTintColour;
 +(UIColor *)viewBackgroundColour;
-+(UIColor *)cellColour;
 +(UIColor *)separatorColour;
 +(UIColor *)selectionColour;
++(UIColor *)listTitleColour;
 +(UIColor *)listSubtitleColour;
 +(UIColor *)insideChatViewLabelColour;
 +(UIColor *)insideChatViewLabelSubtleColour;

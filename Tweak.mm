@@ -34,7 +34,11 @@
 }
 
 -(UIColor *)conversationListBackgroundColor {
-    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.55];
+    return [DDTMColours viewBackgroundColour];
+}
+
+-(UIColor *)conversationListSenderColor {
+    return [DDTMColours listTitleColour];
 }
 
 -(UIColor *)conversationListSummaryColor {
@@ -62,7 +66,22 @@
 }
 
 -(UIColor *)appTintColor {
-    return [DDTMColours appTintColour];
+    return %orig;
+}
+
+%end
+
+// MARK: - Make navigation bar more translucent
+
+%hook _UIBarBackground
+
+-(UIColor *)_colorForStyle:(long long)arg1 {
+    UIColor *color = %orig;
+    return [color colorWithAlphaComponent:0.1];
+}
+
+-(id)_blurWithStyle:(long long)arg1 tint:(id)arg2 {
+    return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
 }
 
 %end
@@ -70,14 +89,6 @@
 // MARK: - Fix balloon mask
 
 %hook CKBalloonView
-
--(UIColor *)overlayColor {
-    return [UIColor yellowColor];
-}
-
--(void)setOverlayColor:(UIColor *)color {
-    %orig([UIColor yellowColor]);
-}
 
 -(BOOL)canUseOpaqueMask {
     return NO;
@@ -182,11 +193,11 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)backgroundColor {
-    return [DDTMColours cellColour];
+    return [UIColor clearColor];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
-    %orig([DDTMColours cellColour]);
+    %orig([UIColor clearColor]);
 }
 
 %end
