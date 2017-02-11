@@ -3,11 +3,13 @@
 #import "UIBackgroundStyle.h"
 #import "SMSHeaders.h"
 
+UIBackgroundStyle blurStyle = UIBackgroundStyleLightBlur;
+
 %hook SMSApplication
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     BOOL result = %orig;
-    [application _setBackgroundStyle:UIBackgroundStyleDarkBlur];
+    [application _setBackgroundStyle:blurStyle];
     UIWindow *window = MSHookIvar<UIWindow *>(application, "_window");
     [window setBackgroundColor:[UIColor clearColor]];
     [window setOpaque:NO];
@@ -61,6 +63,18 @@
 -(void)setView:(UIView *)orig {
     [self setDDProperTransparencyOnView:orig];
     %orig;
+}
+
+%end
+
+%hook CKConversationListTableView
+
+-(UIColor *)backgroundColor {
+    return [UIColor clearColor];
+}
+
+-(void)setBackgroundColor:(UIColor *)color {
+    %orig([UIColor clearColor]);
 }
 
 %end

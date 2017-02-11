@@ -7,7 +7,8 @@
 }
 
 -(void)setDDProperTransparencyOnView:(UIView *)view {
-    [view setBackgroundColor:[UIColor clearColor]];
+    [view setBackgroundColor:[UIColor colorWithWhite:1 alpha:0.25]];
+    [view setUserInteractionEnabled:YES];
     [view setOpaque:NO];
 }
 

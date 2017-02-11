@@ -14,3 +14,6 @@
 
 @interface CKStarkConversationListViewController : UITableViewController
 @end
+
+@interface CKConversationListTableView : UITableView
+@end
