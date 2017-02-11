@@ -9,7 +9,7 @@
 
 -(void)setDDProperTransparencyOnView:(UIView *)view {
     [self setDDHasProperTransparency:YES];
-    [view setBackgroundColor:[UIViewController getProperBackgroundColorForPeeking:[self DDPreviewing]]];
+    [view setBackgroundColor:[UIViewController getProperBackgroundColor]];
     [view setUserInteractionEnabled:YES];
     [view setOpaque:NO];
 }
@@ -23,8 +23,8 @@
     objc_setAssociatedObject(self, @selector(DDHasProperTransparency), @(hasProperTransparency), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
-+(UIColor *)getProperBackgroundColorForPeeking:(BOOL)peeking {
-    return [UIColor colorWithWhite:1 alpha:peeking ? 0.75 : 0.5];
++(UIColor *)getProperBackgroundColor {
+    return [UIColor colorWithWhite:1 alpha:0.5];
 }
 
 @end

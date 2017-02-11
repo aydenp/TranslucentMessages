@@ -6,4 +6,5 @@
 -(void)setDDProperTransparencyOnView:(UIView *)view;
 -(BOOL)DDHasProperTransparency;
 -(void)setDDHasProperTransparency:(BOOL)hasProperTransparency;
++(UIColor *)getProperBackgroundColor;
 @end

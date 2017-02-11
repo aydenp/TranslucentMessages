@@ -7,6 +7,8 @@
 @end
 
 @interface CKViewController : UIViewController
+// Our methods:
+-(void)handleBG:(UIView *)view;
 @end
 
 @interface CKMessagesController : UISplitViewController

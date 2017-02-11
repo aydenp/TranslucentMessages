@@ -32,15 +32,25 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
 -(UIView *)view {
     UIView *orig = %orig;
-    [orig setOpaque:NO];
-    [orig setBackgroundColor:[UIColor clearColor]];
+    [self handleBG:orig];
     return orig;
 }
 
 -(void)setView:(UIView *)orig {
-    [orig setOpaque:NO];
-    [orig setBackgroundColor:[UIColor clearColor]];
+    [self handleBG:orig];
     %orig;
+}
+
+-(void)setDDPreviewing:(BOOL)previewing {
+    %orig;
+    %log;
+    [self handleBG:self.view];
+}
+
+%new
+-(void)handleBG:(UIView *)view {
+    [view setOpaque:NO];
+    [view setBackgroundColor:[[UIViewController getProperBackgroundColor] colorWithAlphaComponent:([self DDPreviewing] ? 0.75 : 0)]];
 }
 
 %end
