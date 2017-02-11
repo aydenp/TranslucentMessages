@@ -1,0 +1,2 @@
+#!/bin/sh
+open *.mm *.h *.m Makefile control -a Xcode

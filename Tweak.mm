@@ -1,7 +1,9 @@
 #import <UIKit/UIKit.h>
+#import <objc/runtime.h>
 #import "DDViewControllerTransparency.h"
 #import "UIBackgroundStyle.h"
 #import "SMSHeaders.h"
+#import "DDViewControllerPeekDetection.h"
 
 UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
@@ -37,7 +39,7 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
 %end
 
-%hook CKStarkConversationListViewController
+%hook CKConversationListController
 
 -(UIView *)view {
     UIView *orig = %orig;
@@ -48,6 +50,20 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 -(void)setView:(UIView *)orig {
     [self setDDProperTransparencyOnView:orig];
     %orig;
+}
+
+- (UIViewController *)previewingContext:(id)previewingContext viewControllerForLocation:(CGPoint)location {
+    UIViewController *vc = %orig;
+    if(vc) {
+        [vc setDDPreviewing:YES];
+    }
+    return vc;
+}
+
+- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+commitViewController:(UIViewController *)viewControllerToCommit {
+    %orig;
+    [viewControllerToCommit setDDPreviewing:NO];
 }
 
 %end
@@ -75,6 +91,23 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
 -(void)setBackgroundColor:(UIColor *)color {
     %orig([UIColor clearColor]);
+}
+
+%end
+
+// MARK: - DDViewControllerPeekDetection
+
+%hook UIViewController
+
+%new
+-(BOOL)DDPreviewing {
+    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDPreviewing));
+    return [previewing boolValue];
+}
+
+%new
+-(void)setDDPreviewing:(BOOL)previewing {
+    objc_setAssociatedObject(self, @selector(DDPreviewing), @(previewing), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 %end
