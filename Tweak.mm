@@ -24,11 +24,14 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 
 %hook SMSApplication
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notification {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    BOOL result = %orig;
     %log;
-    [self.window setBackgroundColor:[UIColor clearColor]];
-    [self.window setOpaque:NO];
-    [[UIApplication sharedApplication] _setBackgroundStyle:UIBackgroundStyleDarkBlur];
+    [application _setBackgroundStyle:UIBackgroundStyleDarkBlur];
+    UIWindow *window = MSHookIvar<UIWindow *>(application, "_window");
+    [window setBackgroundColor:[UIColor clearColor]];
+    [window setOpaque:NO];
+    return result;
 }
 
 %end
@@ -36,7 +39,6 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 %hook CKViewController
 
 -(UIView *)view {
-    %log;
     UIView *orig = %orig;
     [orig setBackgroundColor:[UIColor clearColor]];
     [orig setOpaque:NO];
@@ -44,7 +46,6 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 }
 
 -(void)setView:(UIView *)orig {
-    %log;
     [orig setBackgroundColor:[UIColor clearColor]];
     [orig setOpaque:NO];
     %orig;
