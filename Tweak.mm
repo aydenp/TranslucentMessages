@@ -27,6 +27,28 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
 
 %end
 
+// MARK: - Theme Changes
+
+%hook CKUIThemeLight
+
+-(UIColor *)messagesControllerBackgroundColor {
+    return [DDTMColours viewBackgroundColour];
+}
+
+-(UIColor *)conversationListBackgroundColor {
+    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.55];
+}
+
+-(UIColor *)conversationListSummaryColor {
+    return [DDTMColours listSubtitleColour];
+}
+
+-(UIColor *)conversationListDateColor {
+    return [DDTMColours listSubtitleColour];
+}
+
+%end
+
 // MARK: - Nav Controller?
 
 %hook CKViewController
@@ -51,24 +73,7 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
 %new
 -(void)handleBG:(UIView *)view {
     [view setOpaque:NO];
-    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.55 : 0)]];
-}
-
-%end
-
-// MARK: - Chat View Controller
-
-%hook CKMessagesController
-
--(UIView *)view {
-    UIView *orig = %orig;
-    [self setDDProperTransparencyOnView:orig];
-    return orig;
-}
-
--(void)setView:(UIView *)orig {
-    [self setDDProperTransparencyOnView:orig];
-    %orig;
+    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.7 : 0)]];
 }
 
 %end
@@ -111,14 +116,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     [self setSeparatorColor:[self separatorColor]];
 }
 
--(UIColor *)backgroundColor {
-    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.35];
-}
-
--(void)setBackgroundColor:(UIColor *)color {
-    %orig([self backgroundColor]);
-}
-
 -(UIColor *)separatorColor {
     return [DDTMColours separatorColour];
 }
@@ -143,21 +140,15 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     [selectionView setBackgroundColor:[DDTMColours selectionColour]];
     [self setSelectedBackgroundView:selectionView];
     
-    // Time & Subtitle Labels
-    UILabel *summaryLabel = MSHookIvar<UILabel *>(self, "_summaryLabel");
-    UILabel *dateLabel = MSHookIvar<UILabel *>(self, "_dateLabel");
-    [summaryLabel setTextColor:[DDTMColours listSubtitleColour]];
-    [dateLabel setTextColor:[DDTMColours listSubtitleColour]];
-    
     %orig;
 }
 
 -(UIColor *)backgroundColor {
-    return [UIColor clearColor];
+    return [DDTMColours cellColour];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
-    %orig([UIColor clearColor]);
+    %orig([DDTMColours cellColour]);
 }
 
 %end

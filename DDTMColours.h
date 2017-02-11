@@ -2,6 +2,7 @@
 
 @interface DDTMColours : NSObject
 +(UIColor *)viewBackgroundColour;
++(UIColor *)cellColour;
 +(UIColor *)separatorColour;
 +(UIColor *)selectionColour;
 +(UIColor *)listSubtitleColour;
