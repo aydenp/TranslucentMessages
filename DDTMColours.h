@@ -6,4 +6,5 @@
 +(UIColor *)separatorColour;
 +(UIColor *)selectionColour;
 +(UIColor *)listSubtitleColour;
++(UIColor *)insideChatViewLabelColour;
 @end

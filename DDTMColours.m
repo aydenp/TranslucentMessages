@@ -22,4 +22,8 @@
     return [UIColor colorWithWhite:0 alpha:0.5];
 }
 
++(UIColor *)insideChatViewLabelColour {
+    return [UIColor colorWithWhite:1 alpha:0.75];
+}
+
 @end

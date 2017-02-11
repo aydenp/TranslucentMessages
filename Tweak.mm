@@ -51,6 +51,14 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
     return @[[UIColor colorWithWhite:1 alpha:0.65], [UIColor colorWithWhite:1 alpha:0.5]];
 }
 
+-(UIColor *)stickerDetailsSubheaderTextColor {
+    return [DDTMColours insideChatViewLabelColour];
+}
+
+-(UIColor *)transcriptTextColor {
+    return [DDTMColours insideChatViewLabelColour];
+}
+
 %end
 
 // MARK: - Nav Controller?
@@ -70,7 +78,6 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
 
 -(void)setDDPreviewing:(BOOL)previewing {
     %orig;
-    %log;
     [self handleBG:self.view];
 }
 
@@ -125,7 +132,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(void)setSeparatorColor:(UIColor *)color {
-    %log;
     %orig([self separatorColor]);
 }
 
