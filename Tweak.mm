@@ -112,7 +112,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)backgroundColor {
-    return [UIColor clearColor];
+    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.2];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
