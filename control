@@ -1,0 +1,9 @@
+Package: applebetas.ios.tweak.translucentmessages
+Name: TranslucentMessages
+Depends: mobilesubstrate, firmware (>= 10.0)
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: Testing, testing... 1, 2, 3.
+Maintainer: AppleBetas
+Author: AppleBetas
+Section: Tweaks
