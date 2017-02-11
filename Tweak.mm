@@ -45,10 +45,15 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
     return orig;
 }
 
--(void)setView:(UIView *)orig {
+%end
+
+%hook CKMessagesController
+
+-(UIView *)view {
+    UIView *orig = %orig;
     [orig setBackgroundColor:[UIColor clearColor]];
     [orig setOpaque:NO];
-    %orig;
+    return orig;
 }
 
 %end
