@@ -1,5 +1,6 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
+#import "DDTMColours.h"
 #import "DDViewControllerTransparency.h"
 #import "UIBackgroundStyle.h"
 #import "SMSHeaders.h"
@@ -50,7 +51,7 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 %new
 -(void)handleBG:(UIView *)view {
     [view setOpaque:NO];
-    [view setBackgroundColor:[[UIViewController getProperBackgroundColor] colorWithAlphaComponent:([self DDPreviewing] ? 0.75 : 0)]];
+    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.75 : 0)]];
 }
 
 %end
@@ -111,7 +112,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)backgroundColor {
-    return [[UIViewController getProperBackgroundColor] colorWithAlphaComponent:0.25];
+    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.25];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
@@ -119,7 +120,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)separatorColor {
-    return [UIColor colorWithWhite:0 alpha:0.2];
+    return [DDTMColours separatorColour];
 }
 
 -(void)setSeparatorColor:(UIColor *)color {
@@ -130,6 +131,12 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %end
 
 %hook CKConversationListCell
+
+-(void)layoutSubviews {
+    UIImageView *chevronImageView = MSHookIvar<UIImageView *>(self, "_chevronImageView");
+    [chevronImageView setTintColor:[DDTMColours separatorColour]];
+    %orig;
+}
 
 -(UIColor *)backgroundColor {
     return [UIColor clearColor];
