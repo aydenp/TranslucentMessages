@@ -5,7 +5,9 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
     UIBackgroundStyleTransparent,
     UIBackgroundStyleLightBlur,
     UIBackgroundStyleDarkBlur,
-    UIBackgroundStyleDarkTranslucent
+    UIBackgroundStyleDarkTranslucent,
+    UIBackgroundStyleExtraDarkBlur,
+    UIBackgroundStyleBlur
 };
 
 @interface UIApplication (UIBackgroundStyle)

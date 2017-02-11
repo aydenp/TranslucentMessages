@@ -2,12 +2,8 @@
 
 @implementation DDTMColours
 
-+(UIBlurEffectStyle)backgroundBlurEffectStyle {
-    return UIBlurEffectStyleDark;
-}
-
 +(UIColor *)viewBackgroundColour {
-    return [UIColor colorWithWhite:1 alpha:0.01];
+    return [UIColor colorWithWhite:1 alpha:0.25];
 }
 
 +(UIColor *)separatorColour {

@@ -6,7 +6,7 @@
 #import "SMSHeaders.h"
 #import "DDViewControllerPeekDetection.h"
 
-UIBackgroundStyle blurStyle = UIBackgroundStyleTransparent;
+UIBackgroundStyle blurStyle = UIBackgroundStyleBlur;
 
 // MARK: - Main Application
 
@@ -133,7 +133,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %hook CKConversationListCell
 
 -(void)layoutSubviews {
-    %log;
     UIImageView *chevronImageView = MSHookIvar<UIImageView *>(self, "_chevronImageView");
     [chevronImageView setTintColor:[DDTMColours separatorColour]];
     UIView *selectionView = [[UIView alloc] init];
@@ -152,7 +151,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %end
 
-// MARK: - DDViewControllerPeekDetection
+// MARK: - DDViewControllerPeekDetection Hooks
 
 %hook UIViewController
 
@@ -165,6 +164,30 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %new
 -(void)setDDPreviewing:(BOOL)previewing {
     objc_setAssociatedObject(self, @selector(DDPreviewing), @(previewing), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%end
+
+// MARK: - DDViewControllerTransparency Hooks
+
+%hook UIViewController
+
+%new
+-(void)setDDProperTransparencyOnView:(UIView *)view {
+    [self setDDHasProperTransparency:YES];
+    [view setBackgroundColor:[DDTMColours viewBackgroundColour]];
+    [view setOpaque:NO];
+}
+
+%new
+-(BOOL)DDHasProperTransparency {
+    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDHasProperTransparency));
+    return [previewing boolValue];
+}
+
+%new
+-(void)setDDHasProperTransparency:(BOOL)hasProperTransparency {
+    objc_setAssociatedObject(self, @selector(DDHasProperTransparency), @(hasProperTransparency), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 %end
