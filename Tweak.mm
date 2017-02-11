@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
 #import "DDViewControllerTransparency.h"
 #import "UIBackgroundStyle.h"
+#import "SMSHeaders.h"
 
 %hook SMSApplication
 
