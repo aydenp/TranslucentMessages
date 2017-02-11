@@ -3,7 +3,7 @@
 #import "UIBackgroundStyle.h"
 #import "SMSHeaders.h"
 
-UIBackgroundStyle blurStyle = UIBackgroundStyleLightBlur;
+UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
 %hook SMSApplication
 
@@ -17,7 +17,7 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleLightBlur;
 }
 
 -(void)_setBackgroundStyle:(UIBackgroundStyle)style {
-    %orig(UIBackgroundStyleDarkBlur);
+    %orig(blurStyle);
 }
 
 %end
