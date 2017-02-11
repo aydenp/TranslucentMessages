@@ -6,7 +6,7 @@
 #import "SMSHeaders.h"
 #import "DDViewControllerPeekDetection.h"
 
-UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
+UIBackgroundStyle blurStyle = UIBackgroundStyleTransparent;
 
 // MARK: - Main Application
 
@@ -51,7 +51,7 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 %new
 -(void)handleBG:(UIView *)view {
     [view setOpaque:NO];
-    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.75 : 0)]];
+    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.55 : 0)]];
 }
 
 %end
@@ -112,7 +112,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)backgroundColor {
-    return [[DDTMColours viewBackgroundColour] colorWithAlphaComponent:0.25];
+    return [UIColor clearColor];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
@@ -133,8 +133,12 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %hook CKConversationListCell
 
 -(void)layoutSubviews {
+    %log;
     UIImageView *chevronImageView = MSHookIvar<UIImageView *>(self, "_chevronImageView");
     [chevronImageView setTintColor:[DDTMColours separatorColour]];
+    UIView *selectionView = [[UIView alloc] init];
+    [selectionView setBackgroundColor:[DDTMColours selectionColour]];
+    [self setSelectedBackgroundView:selectionView];
     %orig;
 }
 

@@ -22,3 +22,6 @@
 
 @interface CKConversationListTableView : UITableView
 @end
+
+@interface CKConversationListCell : UITableViewCell
+@end
