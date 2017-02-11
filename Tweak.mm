@@ -1,20 +1,6 @@
 #import <UIKit/UIKit.h>
-
-@interface UIApplication (Private)
-- (void)terminateWithSuccess;
-@end
-
-typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
-    UIBackgroundStyleDefault,
-    UIBackgroundStyleTransparent,
-    UIBackgroundStyleLightBlur,
-    UIBackgroundStyleDarkBlur,
-    UIBackgroundStyleDarkTranslucent
-};
-
-@interface UIApplication (UIBackgroundStyle)
--(void)_setBackgroundStyle:(UIBackgroundStyle)style;
-@end
+#import "DDViewControllerTransparency.h"
+#import "UIBackgroundStyle.h"
 
 @interface SMSApplication : UIApplication {
     UIWindow* _window;
@@ -43,14 +29,12 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 
 -(UIView *)view {
     UIView *orig = %orig;
-    [orig setBackgroundColor:[UIColor clearColor]];
-    [orig setOpaque:NO];
+    [self setDDProperTransparencyOnView:orig];
     return orig;
 }
 
 -(void)setView:(UIView *)orig {
-    [orig setBackgroundColor:[UIColor clearColor]];
-    [orig setOpaque:NO];
+    [self setDDProperTransparencyOnView:orig];
     %orig;
 }
 
@@ -60,14 +44,12 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 
 -(UIView *)view {
     UIView *orig = %orig;
-    [orig setBackgroundColor:[UIColor clearColor]];
-    [orig setOpaque:NO];
+    [self setDDProperTransparencyOnView:orig];
     return orig;
 }
 
 -(void)setView:(UIView *)orig {
-    [orig setBackgroundColor:[UIColor clearColor]];
-    [orig setOpaque:NO];
+    [self setDDProperTransparencyOnView:orig];
     %orig;
 }
 
@@ -77,14 +59,12 @@ typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
 
 -(UIView *)view {
     UIView *orig = %orig;
-    [orig setBackgroundColor:[UIColor clearColor]];
-    [orig setOpaque:NO];
+    [self setDDProperTransparencyOnView:orig];
     return orig;
 }
 
 -(void)setView:(UIView *)orig {
-    [orig setBackgroundColor:[UIColor clearColor]];
-    [orig setOpaque:NO];
+    [self setDDProperTransparencyOnView:orig];
     %orig;
 }
 
