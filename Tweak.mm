@@ -7,6 +7,8 @@
 
 UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
+// MARK: - Main Application
+
 %hook SMSApplication
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -24,6 +26,8 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
 %end
 
+// MARK: - Some View Controllers
+
 %hook CKViewController
 
 -(UIView *)view {
@@ -38,6 +42,23 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 }
 
 %end
+
+%hook CKMessagesController
+
+-(UIView *)view {
+    UIView *orig = %orig;
+    [self setDDProperTransparencyOnView:orig];
+    return orig;
+}
+
+-(void)setView:(UIView *)orig {
+    [self setDDProperTransparencyOnView:orig];
+    %orig;
+}
+
+%end
+
+// MARK: - Conversation list
 
 %hook CKConversationListController
 
@@ -64,21 +85,6 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 commitViewController:(UIViewController *)viewControllerToCommit {
     %orig;
     [viewControllerToCommit setDDPreviewing:NO];
-}
-
-%end
-
-%hook CKMessagesController
-
--(UIView *)view {
-    UIView *orig = %orig;
-    [self setDDProperTransparencyOnView:orig];
-    return orig;
-}
-
--(void)setView:(UIView *)orig {
-    [self setDDProperTransparencyOnView:orig];
-    %orig;
 }
 
 %end
