@@ -24,7 +24,7 @@
 }
 
 +(UIColor *)getProperBackgroundColorForPeeking:(BOOL)peeking {
-    return [UIColor colorWithWhite:1 alpha:peeking ? 0.75 : 0.25];
+    return [UIColor colorWithWhite:1 alpha:peeking ? 0.75 : 0.5];
 }
 
 @end

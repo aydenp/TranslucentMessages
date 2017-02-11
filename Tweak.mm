@@ -26,22 +26,26 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
 %end
 
-// MARK: - Some View Controllers
+// MARK: - Nav Controller?
 
 %hook CKViewController
 
 -(UIView *)view {
     UIView *orig = %orig;
-    [self setDDProperTransparencyOnView:orig];
+    [orig setOpaque:NO];
+    [orig setBackgroundColor:[UIColor clearColor]];
     return orig;
 }
 
 -(void)setView:(UIView *)orig {
-    [self setDDProperTransparencyOnView:orig];
+    [orig setOpaque:NO];
+    [orig setBackgroundColor:[UIColor clearColor]];
     %orig;
 }
 
 %end
+
+// MARK: - Chat View Controller
 
 %hook CKMessagesController
 
@@ -58,7 +62,7 @@ UIBackgroundStyle blurStyle = UIBackgroundStyleDarkBlur;
 
 %end
 
-// MARK: - Conversation list
+// MARK: - Conversation List
 
 %hook CKConversationListController
 
