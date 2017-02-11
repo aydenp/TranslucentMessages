@@ -101,6 +101,18 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %end
 
+%hook CKConversationListCell
+
+-(UIColor *)backgroundColor {
+    return [UIColor clearColor];
+}
+
+-(void)setBackgroundColor:(UIColor *)color {
+    %orig([UIColor clearColor]);
+}
+
+%end
+
 // MARK: - DDViewControllerPeekDetection
 
 %hook UIViewController
