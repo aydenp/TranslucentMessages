@@ -2,12 +2,6 @@
 #import "DDViewControllerTransparency.h"
 #import "UIBackgroundStyle.h"
 
-@interface SMSApplication : UIApplication {
-    UIWindow* _window;
-}
-@property (nonatomic,retain) UIWindow * window;
-@end
-
 %hook SMSApplication
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
