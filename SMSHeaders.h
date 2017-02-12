@@ -18,6 +18,8 @@
 @end
 
 @interface CKConversationListController : UITableViewController
+-(UISearchController *)searchController;
+-(void)setSearchController:(UISearchController *)arg1;
 @end
 
 @interface CKConversationListTableView : UITableView
@@ -78,4 +80,10 @@
 @interface CKEntryViewButton : UIButton
 -(void)setCkTintColor:(UIColor *)arg1;
 -(UIColor *)ckTintColor;
+@end
+
+@interface UISearchBar (DDConvoSearchBar)
+-(BOOL)DDConvoSearchBar;
+-(void)setDDConvoSearchBar:(BOOL)convoSearchBar;
+-(void)DDCommonInit;
 @end

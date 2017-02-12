@@ -222,10 +222,7 @@
 %hook CKEntryViewButton
 
 -(UIColor *)ckTintColor {
-    %log;
-    NSLog(@"[TranslucentMessages] FUCK FFS");
     if([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) {
-        NSLog(@"[TranslucentMessages] FUCK YEAH");
         return [DDTMColours entryFieldButtonColor];
     }
     return %orig;
@@ -283,6 +280,11 @@
 
 %hook CKConversationListController
 
+-(void)loadView {
+    %orig;
+    [self.searchController.searchBar setDDConvoSearchBar:YES];
+}
+
 -(UIView *)view {
     UIView *orig = %orig;
     [self setDDProperTransparencyOnView:orig];
@@ -291,6 +293,11 @@
 
 -(void)setView:(UIView *)orig {
     [self setDDProperTransparencyOnView:orig];
+    %orig;
+}
+
+-(void)setSearchController:(UISearchController *)arg1 {
+    [arg1.searchBar setDDConvoSearchBar:YES];
     %orig;
 }
 
@@ -349,6 +356,42 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 -(void)setBackgroundColor:(UIColor *)color {
     %orig([UIColor clearColor]);
+}
+
+%end
+
+%hook UISearchBar
+
+%new
+-(void)DDCommonInit {
+    [self setBarTintColor:[self barTintColor]];
+    UITextField *searchField = MSHookIvar<UITextField *>(self, "_searchField");
+    [searchField setBackgroundColor:[DDTMColours searchBarFieldTintColour]];
+}
+
+
+-(UIColor *)barTintColor {
+    if([self DDConvoSearchBar]) {
+        return [DDTMColours searchBarTintColour];
+    }
+    return %orig;
+}
+
+-(void)setBarTintColor:(UIColor *)barTintColor {
+    %orig([self barTintColor]);
+}
+
+%new
+-(BOOL)DDConvoSearchBar {
+    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDConvoSearchBar));
+    return [previewing boolValue];
+}
+
+%new
+-(void)setDDConvoSearchBar:(BOOL)convoSearchBar {
+    %log;
+    objc_setAssociatedObject(self, @selector(DDConvoSearchBar), @(convoSearchBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    [self DDCommonInit];
 }
 
 %end

@@ -46,4 +46,12 @@
     return [UIColor colorWithWhite:1 alpha:0.3];
 }
 
++(UIColor *)searchBarTintColour {
+    return [UIColor colorWithWhite:1 alpha:0.2];
+}
+
++(UIColor *)searchBarFieldTintColour {
+    return [UIColor colorWithWhite:1 alpha:0.4];
+}
+
 @end
