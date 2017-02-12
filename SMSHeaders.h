@@ -12,6 +12,9 @@
 -(void)handleBG:(UIView *)view;
 @end
 
+@interface CKScrollViewController : CKViewController
+@end
+
 @interface CKNavigationController : UINavigationController
 -(void)DDCommonInit;
 @end
@@ -65,7 +68,16 @@
 @end
 
 @interface _UIBackdropView : UIView
+-(UIView *)colorTintView;
 -(void)setColorTintView:(UIView *)arg1;
+-(UIView *)colorBurnTintView;
+-(void)setColorBurnTintView:(UIView *)arg1;
+-(UIView *)grayscaleTintView;
+-(void)setGrayscaleTintView:(UIView *)arg1;
+
+-(BOOL)DDSpecialEffectsActive;
+-(void)setDDSpecialEffectsActive:(BOOL)active;
+
 -(BOOL)DDIsMessageEntryView;
 -(void)setDDIsMessageEntryView:(BOOL)isMessageEntryView;
 @end
@@ -75,6 +87,9 @@
 }
 -(void)DDInitialize;
 -(id)backdropView;
+
+-(BOOL)DDSpecialEffectsActive;
+-(void)setDDSpecialEffectsActive:(BOOL)active;
 @end
 
 @interface _UIBackdropEffectView : UIView
@@ -106,11 +121,12 @@
 @end
 
 @interface CKUITheme : NSObject
+- (id)entryFieldHighlightedButtonColor;
 @end
 
 @interface CKUIBehavior : NSObject
 +(id)sharedBehaviors;
-+(CKUIBehavior *)currentBehavior;
++(CKUITheme *)currentTheme;
 +(BOOL)hasDarkTheme;
 -(CKUITheme *)theme;
 @end
@@ -119,4 +135,12 @@
 @end
 
 @interface CKUIBehaviorPad : CKUIBehavior
+@end
+
+@interface CKCoreChatController : CKScrollViewController
+@end
+
+@interface CKChatController : CKCoreChatController
+-(CKMessageEntryView *)entryView;
+-(void)setEntryView:(CKMessageEntryView *)arg1;
 @end

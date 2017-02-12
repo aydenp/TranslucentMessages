@@ -32,18 +32,18 @@
 %hook CKUIBehavior
 
 %new
-+(CKUIBehavior *)currentBehavior {
++(CKUITheme *)currentTheme {
     if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
-        return [NSClassFromString(@"CKUIBehaviorPad") sharedBehaviors];
+        return [[NSClassFromString(@"CKUIBehaviorPad") sharedBehaviors] theme];
     } else {
-        return [NSClassFromString(@"CKUIBehaviorPhone") sharedBehaviors];
+        return [[NSClassFromString(@"CKUIBehaviorPhone") sharedBehaviors] theme];
     }
 }
 
 %new
 +(BOOL)hasDarkTheme {
-    CKUIBehavior *behavior = [NSClassFromString(@"CKUIBehavior") currentBehavior];
-    if([[behavior theme] isKindOfClass:NSClassFromString(@"CKUIThemeDark")]) {
+    CKUITheme *theme = [NSClassFromString(@"CKUIBehavior") currentTheme];
+    if([theme isKindOfClass:NSClassFromString(@"CKUIThemeDark")]) {
         return YES;
     }
     return NO;
@@ -233,6 +233,17 @@
 %new
 -(void)DDInitialize {
     [[self backdropView] setDDIsMessageEntryView:YES];
+    [[self backdropView] setDDSpecialEffectsActive:YES];
+}
+
+%new
+-(BOOL)DDSpecialEffectsActive {
+    return [[self backdropView] DDSpecialEffectsActive];
+}
+
+%new
+-(void)setDDSpecialEffectsActive:(BOOL)active {
+    [[self backdropView] setDDSpecialEffectsActive:active];
 }
 
 %end
@@ -241,60 +252,57 @@
 
 -(UIView *)colorTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView]) {
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
         [arg1 setAlpha:0];
+    } else {
+        [arg1 setAlpha:1];
     }
     return arg1;
 }
 
 -(void)setColorTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView]) {
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
         [arg1 setAlpha:0];
-    }
-    %orig;
-}
-
--(UIView *)effectView {
-    UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView]) {
-        [arg1 setAlpha:0];
-    }
-    return arg1;
-}
-
--(void)setEffectView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView]) {
-        [arg1 setAlpha:0];
+    } else {
+        [arg1 setAlpha:1];
     }
     %orig;
 }
 
 -(UIView *)colorBurnTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView]) {
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
         [arg1 setAlpha:0];
+    } else {
+        [arg1 setAlpha:1];
     }
     return arg1;
 }
 
 -(void)setColorBurnTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView]) {
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
         [arg1 setAlpha:0];
+    } else {
+        [arg1 setAlpha:1];
     }
     %orig;
 }
 
 -(UIView *)grayscaleTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView]) {
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
         [arg1 setAlpha:0];
+    } else {
+        [arg1 setAlpha:1];
     }
     return arg1;
 }
 
 -(void)setGrayscaleTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView]) {
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
         [arg1 setAlpha:0];
+    } else {
+        [arg1 setAlpha:1];
     }
     %orig;
 }
@@ -310,19 +318,44 @@
     objc_setAssociatedObject(self, @selector(DDIsMessageEntryView), @(isMessageEntryView), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+%new
+-(BOOL)DDSpecialEffectsActive {
+    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDSpecialEffectsActive));
+    return [previewing boolValue];
+}
+
+%new
+-(void)setDDSpecialEffectsActive:(BOOL)active {
+    %log;
+    objc_setAssociatedObject(self, @selector(DDSpecialEffectsActive), @(active), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if([self colorTintView]) {
+        [self setColorTintView:[self colorTintView]];
+    }
+    if([self colorBurnTintView]) {
+        [self setColorBurnTintView:[self colorBurnTintView]];
+    }
+    if([self grayscaleTintView]) {
+        [self setGrayscaleTintView:[self grayscaleTintView]];
+    }
+}
+
 %end
 
 %hook CKEntryViewButton
 
 -(UIColor *)ckTintColor {
-    if([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) {
+    if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")])) {
         return [DDTMColours entryFieldButtonColor];
     }
     return %orig;
 }
 
 -(void)setCkTintColor:(UIColor *)tintColor {
-    %orig([self ckTintColor]);
+    if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) && (tintColor != [[NSClassFromString(@"CKUIBehavior") currentTheme] entryFieldHighlightedButtonColor])) {
+        %orig([DDTMColours entryFieldButtonColor]);
+    } else {
+        %orig;
+    }
 }
 
 %end
@@ -487,6 +520,22 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 -(void)setDDConvoSearchBar:(BOOL)convoSearchBar {
     objc_setAssociatedObject(self, @selector(DDConvoSearchBar), @(convoSearchBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self DDCommonInit];
+}
+
+%end
+
+// MARK: - iMessage app fix
+
+%hook CKChatController
+
+-(void)chatInputControllerWillPresentModalBrowserViewController:(id)arg1 {
+    %orig;
+    [[self entryView] setDDSpecialEffectsActive:NO];
+}
+
+-(void)chatInputControllerWillDismissModalBrowserViewController:(id)arg1 {
+    %orig;
+    [[self entryView] setDDSpecialEffectsActive:YES];
 }
 
 %end
