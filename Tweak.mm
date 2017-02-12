@@ -498,11 +498,11 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 -(void)viewDidLoad {
     %orig;
     
-    [[self chatNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
     [[self conversationListNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
+    [[self chatNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
     
     [self setInteractionController:[[DDCustomInteraction alloc] init]];
-    [[self interactionController] wireToViewController:(UINavigationController *)self];
+    [[self interactionController] wireToViewController:[self conversationListNavigationController]];
     [self setPushAnimator:[[DDCustomAnimator alloc] init]];
     [self setPopAnimator:[[DDCustomAnimator alloc] initWithReverse:YES]];
     [self setPushCurvedAnimator:[[DDCustomAnimator alloc] initWithCurved:YES]];

@@ -1,10 +1,11 @@
 #import <UIKit/UIKit.h>
 
-@interface DDCustomInteraction : UIPercentDrivenInteractiveTransition
-@property BOOL interactionInProgress;
-@property BOOL _shouldCompleteTransition;
-@property UIViewController *wasViewController;
-@property UINavigationController *viewController;
+@interface DDCustomInteraction : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
+@property (nonatomic) BOOL interactionInProgress;
+@property (nonatomic) BOOL _shouldCompleteTransition;
+@property (nonatomic, strong) UIViewController *wasViewController;
+@property (nonatomic, strong) UINavigationController *viewController;
+
 -(void)wireToViewController:(UINavigationController *)viewController;
 -(void)prepareGestureRecognizerInView:(UIView *)view;
 -(void)handleGesture:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer;
