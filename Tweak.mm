@@ -537,7 +537,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     %orig;
     
     [[self conversationListNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
-    [[self chatNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
     
     [self setInteractionController:[[DDCustomInteraction alloc] init]];
     [[self interactionController] wireToViewController:[self conversationListNavigationController]];

@@ -39,7 +39,7 @@
         [toViewController.view setFrame:fromVCFrame];
     } completion:^(BOOL finished) {
         [fromViewController.view setFrame:fromVCFrame];
-        [transitionContext completeTransition:YES];
+        [transitionContext completeTransition:![transitionContext transitionWasCancelled]];
      }];
 }
 

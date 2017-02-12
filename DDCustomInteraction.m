@@ -18,6 +18,14 @@
     return YES;
 }
 
+-(void)finishInteractiveTransition {
+    [super finishInteractiveTransition];
+}
+
+-(void)cancelInteractiveTransition {
+    [super cancelInteractiveTransition];
+}
+
 -(void)handleGesture:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer {
     CGPoint translation = [gestureRecognizer translationInView:gestureRecognizer.view.superview];
     CGFloat progress = translation.x / gestureRecognizer.view.superview.frame.size.width;
