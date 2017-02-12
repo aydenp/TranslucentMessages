@@ -107,6 +107,10 @@
     return UIKeyboardAppearanceDark;
 }
 
+-(UIColor *)entryFieldBackgroundColor {
+    return [UIColor clearColor];
+}
+
 %end
 
 
@@ -164,6 +168,10 @@
     return [DDTMColours darkEntryFieldCoverBorderColor];
 }
 
+-(UIColor *)entryFieldBackgroundColor {
+    return [UIColor clearColor];
+}
+
 %end
 
 // MARK: - Make navigation bar more translucent
@@ -181,7 +189,6 @@
 %hook _UIBarBackground
 
 -(id)_blurWithStyle:(long long)arg1 tint:(id)arg2 {
-    %log;
     if([self DDIsInAvatarNavigationBar] && arg1 == 0) {
         return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     }
@@ -374,7 +381,7 @@
     %orig;
 }
 
-- (UIViewController *)previewingContext:(id)previewingContext viewControllerForLocation:(CGPoint)location {
+-(UIViewController *)previewingContext:(id)previewingContext viewControllerForLocation:(CGPoint)location {
     UIViewController *vc = %orig;
     if(vc) {
         [vc setDDPreviewing:YES];
@@ -382,10 +389,22 @@
     return vc;
 }
 
-- (void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
+-(void)previewingContext:(id<UIViewControllerPreviewing>)previewingContext
 commitViewController:(UIViewController *)viewControllerToCommit {
     %orig;
     [viewControllerToCommit setDDPreviewing:NO];
+}
+
+-(void)searcherDidComplete:(id)arg1 {
+    %orig;
+    UITableView *tableView = MSHookIvar<UITableView *>(self, "_table");
+    [tableView setHidden:YES];
+}
+
+-(void)willDismissSearchController:(UISearchController *)searchController {
+    %orig;
+    UITableView *tableView = MSHookIvar<UITableView *>(self, "_table");
+    [tableView setHidden:NO];
 }
 
 %end
