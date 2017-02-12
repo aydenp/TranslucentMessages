@@ -233,7 +233,7 @@
 %new
 -(void)DDInitialize {
     [[self backdropView] setDDIsMessageEntryView:YES];
-    [[self backdropView] setDDSpecialEffectsActive:![self shouldConfigureForFullscreenAppView]];
+    [self setDDSpecialEffectsActive:![self shouldConfigureForFullscreenAppView]];
 }
 
 %new
@@ -243,22 +243,14 @@
 
 %new
 -(void)setDDSpecialEffectsActive:(BOOL)active {
-    [[self backdropView] setDDSpecialEffectsActive:active];
+    [self.backdropView setDDSpecialEffectsActive:active];
+    [self.backdropView setHidden:!active];
+    [self setBackgroundColor:(active ? [UIColor clearColor] : [UIColor colorWithWhite:0.3 alpha:1])];
 }
 
 %end
 
 %hook _UIBackdropView
-
--(id)init { %log; return %orig; }
--(id)initWithFrame:(CGRect)arg1 { %log; return %orig; }
--(id)initWithFrame:(CGRect)arg1 style:(long long)arg2 { %log; return %orig; }
--(id)initWithStyle:(long long)arg1 { %log; return %orig; }
--(id)initWithPrivateStyle:(long long)arg1 { %log; return %orig; }
--(id)initWithSettings:(id)arg1 { %log; return %orig; }
--(id)initWithFrame:(CGRect)arg1 privateStyle:(long long)arg2 { %log; return %orig; }
--(id)initWithFrame:(CGRect)arg1 autosizesToFitSuperview:(BOOL)arg2 settings:(id)arg3 { %log; return %orig; }
--(id)initWithFrame:(CGRect)arg1 settings:(id)arg2 { %log; return %orig; }
 
 -(UIView *)colorTintView {
     UIView *arg1 = %orig;
