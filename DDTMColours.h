@@ -15,6 +15,8 @@
 +(UIColor *)entryFieldButtonColor;
 +(UIColor *)entryFieldCoverFillColor;
 +(UIColor *)entryFieldCoverBorderColor;
++(UIColor *)darkEntryFieldCoverFillColor;
++(UIColor *)darkEntryFieldCoverBorderColor;
 +(UIColor *)searchBarTintColour;
 +(UIColor *)searchBarFieldTintColour;
 @end

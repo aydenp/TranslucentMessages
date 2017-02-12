@@ -54,6 +54,14 @@
     return [UIColor colorWithWhite:1 alpha:0.3];
 }
 
++(UIColor *)darkEntryFieldCoverFillColor {
+    return [UIColor colorWithWhite:1 alpha:0.1];
+}
+
++(UIColor *)darkEntryFieldCoverBorderColor {
+    return [UIColor colorWithWhite:1 alpha:0.15];
+}
+
 +(UIColor *)searchBarTintColour {
     return [UIColor colorWithWhite:1 alpha:0.2];
 }

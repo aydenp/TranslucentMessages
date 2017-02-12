@@ -157,11 +157,11 @@
 }
 
 -(UIColor *)entryFieldCoverFillColor {
-    return [DDTMColours entryFieldCoverFillColor];
+    return [DDTMColours darkEntryFieldCoverFillColor];
 }
 
 -(UIColor *)entryFieldCoverBorderColor {
-    return [DDTMColours entryFieldCoverBorderColor];
+    return [DDTMColours darkEntryFieldCoverBorderColor];
 }
 
 %end
