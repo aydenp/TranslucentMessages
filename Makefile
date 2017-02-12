@@ -1,6 +1,6 @@
 export TARGET=iphone:clang
 ARCHS = armv7 arm64
-DEBUG = 1
+DEBUG = 0
 
 THEOS=/opt/theos
 
