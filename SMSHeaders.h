@@ -86,6 +86,7 @@
     _UIBackdropView * _backdropView;
 }
 -(void)DDInitialize;
+-(BOOL)shouldConfigureForFullscreenAppView;
 -(id)backdropView;
 
 -(BOOL)DDSpecialEffectsActive;

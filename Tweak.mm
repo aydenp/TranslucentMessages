@@ -233,7 +233,7 @@
 %new
 -(void)DDInitialize {
     [[self backdropView] setDDIsMessageEntryView:YES];
-    [[self backdropView] setDDSpecialEffectsActive:YES];
+    [[self backdropView] setDDSpecialEffectsActive:![self shouldConfigureForFullscreenAppView]];
 }
 
 %new
@@ -250,36 +250,58 @@
 
 %hook _UIBackdropView
 
+-(id)init { %log; return %orig; }
+-(id)initWithFrame:(CGRect)arg1 { %log; return %orig; }
+-(id)initWithFrame:(CGRect)arg1 style:(long long)arg2 { %log; return %orig; }
+-(id)initWithStyle:(long long)arg1 { %log; return %orig; }
+-(id)initWithPrivateStyle:(long long)arg1 { %log; return %orig; }
+-(id)initWithSettings:(id)arg1 { %log; return %orig; }
+-(id)initWithFrame:(CGRect)arg1 privateStyle:(long long)arg2 { %log; return %orig; }
+-(id)initWithFrame:(CGRect)arg1 autosizesToFitSuperview:(BOOL)arg2 settings:(id)arg3 { %log; return %orig; }
+-(id)initWithFrame:(CGRect)arg1 settings:(id)arg2 { %log; return %orig; }
+
 -(UIView *)colorTintView {
     UIView *arg1 = %orig;
-    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+        [arg1 setHidden:YES];
+    }
     return arg1;
 }
 
 -(void)setColorTintView:(UIView *)arg1 {
-    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+        [arg1 setHidden:YES];
+    }
     %orig;
 }
 
 -(UIView *)colorBurnTintView {
     UIView *arg1 = %orig;
-    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+        [arg1 setHidden:YES];
+    }
     return arg1;
 }
 
 -(void)setColorBurnTintView:(UIView *)arg1 {
-    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+        [arg1 setHidden:YES];
+    }
     %orig;
 }
 
 -(UIView *)grayscaleTintView {
     UIView *arg1 = %orig;
-    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+        [arg1 setHidden:YES];
+    }
     return arg1;
 }
 
 -(void)setGrayscaleTintView:(UIView *)arg1 {
-    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
+    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+        [arg1 setHidden:YES];
+    }
     %orig;
 }
 
@@ -304,16 +326,10 @@
 -(void)setDDSpecialEffectsActive:(BOOL)active {
     %log;
     objc_setAssociatedObject(self, @selector(DDSpecialEffectsActive), @(active), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    BOOL mev = [self DDIsMessageEntryView];
-    if([self colorTintView]) {
-        [[self colorTintView] setHidden:(active && mev)];
-    }
-    if([self colorBurnTintView]) {
-        [[self colorBurnTintView] setHidden:(active && mev)];
-    }
-    if([self grayscaleTintView]) {
-        [[self grayscaleTintView] setHidden:(active && mev)];
-    }
+    BOOL hide = [self DDIsMessageEntryView] & active;
+    [[self colorTintView] setHidden:hide];
+    [[self colorBurnTintView] setHidden:hide];
+    [[self grayscaleTintView] setHidden:hide];
 }
 
 %end
@@ -513,6 +529,15 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 -(void)chatInputControllerWillDismissModalBrowserViewController:(id)arg1 {
     %orig;
     [[self entryView] setDDSpecialEffectsActive:YES];
+}
+
+%end
+
+%hook CKBrowserFooterTransitionView
+
+-(void)setEntryView:(CKMessageEntryView *)arg1 {
+    [arg1 setDDSpecialEffectsActive:NO];
+    %orig;
 }
 
 %end
