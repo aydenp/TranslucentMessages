@@ -8,6 +8,32 @@
 #import "DDCustomAnimator.h"
 #import "DDCustomInteraction.h"
 
+static BOOL isEnabled = YES;
+
+static void loadSettings() {
+    NSDictionary *settings = nil;
+    CFStringRef kPrefsAppID = CFSTR("applebetas.ios.tweaks.translucentmessages");
+    CFPreferencesAppSynchronize(kPrefsAppID);
+    CFArrayRef keyList = CFPreferencesCopyKeyList(kPrefsAppID, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+    if (keyList) {
+        settings = (NSDictionary *)CFBridgingRelease(CFPreferencesCopyMultiple(keyList, kPrefsAppID, kCFPreferencesCurrentUser, kCFPreferencesAnyHost));
+        CFRelease(keyList);
+    }
+    if (settings && settings[@"Enabled"]) {
+        isEnabled = [settings[@"Enabled"] boolValue];
+    }
+}
+
+static void settingsChanged(CFNotificationCenterRef center,
+                            void *observer,
+                            CFStringRef name,
+                            const void *object,
+                            CFDictionaryRef userInfo) {
+    [[UIApplication sharedApplication] terminateWithSuccess];
+}
+
+%group Tweak
+
 // MARK: - Main Application
 
 %hook SMSApplication
@@ -634,3 +660,25 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 %end
+
+%end
+
+// MARK: - Loading
+
+%ctor {
+    @autoreleasepool {
+        loadSettings();
+        
+        if (isEnabled) {
+            %init(Tweak);
+        }
+        
+        // listen for notifications from settings
+        CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
+                                        NULL,
+                                        (CFNotificationCallback)settingsChanged,
+                                        CFSTR("applebetas.ios.tweaks.translucentmessages.changed"),
+                                        NULL,
+                                        CFNotificationSuspensionBehaviorDeliverImmediately);
+    }
+}

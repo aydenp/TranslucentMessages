@@ -146,3 +146,7 @@
 -(CKMessageEntryView *)entryView;
 -(void)setEntryView:(CKMessageEntryView *)arg1;
 @end
+
+@interface UIApplication (Private)
+- (void)terminateWithSuccess;
+@end

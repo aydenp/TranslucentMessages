@@ -13,6 +13,8 @@ $(TWEAK_NAME)_LDFLAGS += -F./
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc
 
 include $(THEOS_MAKE_PATH)/tweak.mk
+SUBPROJECTS += Settings
+include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-install::
-	install.exec "killall MobileSMS;sblaunch com.apple.MobileSMS"
+	install.exec "killall SpringBoard"
