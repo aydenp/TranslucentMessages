@@ -362,7 +362,7 @@
 %new
 -(void)handleBG:(UIView *)view {
     [view setOpaque:NO];
-    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.5 : 0)]];
+    [view setBackgroundColor:[([NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkViewBackgroundColour] : [DDTMColours viewBackgroundColour]) colorWithAlphaComponent:([self DDPreviewing] ? 0.5 : 0)]];
 }
 
 %end
