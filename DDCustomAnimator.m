@@ -34,7 +34,7 @@
     [transitionContext.containerView addSubview:toViewController.view];
     [toViewController.view setFrame:CGRectOffset(fromVCFrame, width * (self.reverse ? -1 : 1), 0)];
     
-    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:(self.curved ? UIViewAnimationOptionCurveEaseInOut : UIViewAnimationOptionCurveLinear) animations:^ {
+    [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:(self.curved ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveLinear) animations:^ {
         [fromViewController.view setFrame:CGRectOffset(fromVCFrame, width * (self.reverse ? 1 : -1), 0)];
         [toViewController.view setFrame:fromVCFrame];
     } completion:^(BOOL finished) {

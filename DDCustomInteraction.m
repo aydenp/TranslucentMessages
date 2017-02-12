@@ -33,19 +33,17 @@
         [self updateInteractiveTransition:progress];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         self.interactionInProgress = NO;
-        if(self.wasViewController) {
-            if(self.wasViewController != self.viewController.visibleViewController) {
-                [self.viewController pushViewController:self.wasViewController animated:NO];
-            }
-        }
+        /*if(self.wasViewController && self.wasViewController != self.viewController.visibleViewController) {
+            [self.viewController pushViewController:self.wasViewController animated:NO];
+        }*/
         [self cancelInteractiveTransition];
         self.wasViewController = nil;
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.interactionInProgress = NO;
         if(!self._shouldCompleteTransition) {
-            if(self.wasViewController && self.wasViewController != self.viewController.visibleViewController) {
+            /*if(self.wasViewController && self.wasViewController != self.viewController.visibleViewController) {
                 [self.viewController pushViewController:self.wasViewController animated:NO];
-            }
+            }*/
             [self cancelInteractiveTransition];
         } else {
             [self finishInteractiveTransition];
