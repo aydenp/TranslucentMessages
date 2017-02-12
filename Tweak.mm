@@ -252,58 +252,34 @@
 
 -(UIView *)colorTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
-        [arg1 setAlpha:0];
-    } else {
-        [arg1 setAlpha:1];
-    }
+    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
     return arg1;
 }
 
 -(void)setColorTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
-        [arg1 setAlpha:0];
-    } else {
-        [arg1 setAlpha:1];
-    }
+    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
     %orig;
 }
 
 -(UIView *)colorBurnTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
-        [arg1 setAlpha:0];
-    } else {
-        [arg1 setAlpha:1];
-    }
+    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
     return arg1;
 }
 
 -(void)setColorBurnTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
-        [arg1 setAlpha:0];
-    } else {
-        [arg1 setAlpha:1];
-    }
+    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
     %orig;
 }
 
 -(UIView *)grayscaleTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
-        [arg1 setAlpha:0];
-    } else {
-        [arg1 setAlpha:1];
-    }
+    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
     return arg1;
 }
 
 -(void)setGrayscaleTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
-        [arg1 setAlpha:0];
-    } else {
-        [arg1 setAlpha:1];
-    }
+    [arg1 setHidden:([self DDIsMessageEntryView] && [self DDSpecialEffectsActive])];
     %orig;
 }
 
@@ -328,14 +304,15 @@
 -(void)setDDSpecialEffectsActive:(BOOL)active {
     %log;
     objc_setAssociatedObject(self, @selector(DDSpecialEffectsActive), @(active), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    BOOL mev = [self DDIsMessageEntryView];
     if([self colorTintView]) {
-        [self setColorTintView:[self colorTintView]];
+        [[self colorTintView] setHidden:(active && mev)];
     }
     if([self colorBurnTintView]) {
-        [self setColorBurnTintView:[self colorBurnTintView]];
+        [[self colorBurnTintView] setHidden:(active && mev)];
     }
     if([self grayscaleTintView]) {
-        [self setGrayscaleTintView:[self grayscaleTintView]];
+        [[self grayscaleTintView] setHidden:(active && mev)];
     }
 }
 
