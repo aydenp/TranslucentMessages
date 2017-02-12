@@ -7,7 +7,7 @@ THEOS=/opt/theos
 include $(THEOS)/makefiles/common.mk
 
 TWEAK_NAME = TranslucentMessages
-$(TWEAK_NAME)_FILES = Tweak.xm DDTMColours.m
+$(TWEAK_NAME)_FILES = Tweak.xm DDTMColours.m DDCustomAnimator.m DDCustomInteraction.m
 $(TWEAK_NAME)_FRAMEWORKS = UIKit
 $(TWEAK_NAME)_LDFLAGS += -F./
 $(TWEAK_NAME)_CFLAGS = -fobjc-arc

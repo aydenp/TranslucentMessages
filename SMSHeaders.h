@@ -1,4 +1,6 @@
 #import <UIKit/UIKit.h>
+#import "DDCustomAnimator.h"
+#import "DDCustomInteraction.h"
 
 @interface SMSApplication : UIApplication {
     UIWindow* _window;
@@ -6,12 +8,27 @@
 @property (nonatomic,retain) UIWindow * window;
 @end
 
-@interface CKViewController : UIViewController
-// Our methods:
+@interface CKViewController : UIViewController <UINavigationControllerDelegate>
 -(void)handleBG:(UIView *)view;
 @end
 
+@interface CKNavigationController : UINavigationController
+-(void)DDCommonInit;
+@end
+
 @interface CKMessagesController : UISplitViewController
+-(CKNavigationController *)chatNavigationController;
+-(CKNavigationController *)conversationListNavigationController;
+-(DDCustomInteraction *)interactionController;
+-(void)setInteractionController:(DDCustomInteraction *)obj;
+-(DDCustomAnimator *)pushAnimator;
+-(void)setPushAnimator:(DDCustomAnimator *)obj;
+-(DDCustomAnimator *)popAnimator;
+-(void)setPopAnimator:(DDCustomAnimator *)obj;
+-(DDCustomAnimator *)pushCurvedAnimator;
+-(void)setPushCurvedAnimator:(DDCustomAnimator *)obj;
+-(DDCustomAnimator *)popCurvedAnimator;
+-(void)setPopCurvedAnimator:(DDCustomAnimator *)obj;
 @end
 
 @interface CKStarkConversationListViewController : UITableViewController

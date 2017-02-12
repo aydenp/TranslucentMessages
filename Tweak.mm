@@ -5,6 +5,8 @@
 #import "UIBackgroundStyle.h"
 #import "SMSHeaders.h"
 #import "DDViewControllerPeekDetection.h"
+#import "DDCustomAnimator.h"
+#import "DDCustomInteraction.h"
 
 // MARK: - Main Application
 
@@ -483,6 +485,96 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 -(void)setDDConvoSearchBar:(BOOL)convoSearchBar {
     objc_setAssociatedObject(self, @selector(DDConvoSearchBar), @(convoSearchBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self DDCommonInit];
+}
+
+%end
+
+// MARK: - Navigation animation & interaction
+
+%hook CKMessagesController
+
+-(void)viewDidLoad {
+    %orig;
+    
+    [[self chatNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
+    [[self conversationListNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
+    
+    [self setInteractionController:[[DDCustomInteraction alloc] init]];
+    [[self interactionController] wireToViewController:(UINavigationController *)self];
+    [self setPushAnimator:[[DDCustomAnimator alloc] init]];
+    [self setPopAnimator:[[DDCustomAnimator alloc] initWithReverse:YES]];
+    [self setPushCurvedAnimator:[[DDCustomAnimator alloc] initWithCurved:YES]];
+    [self setPopCurvedAnimator:[[DDCustomAnimator alloc] initWithReverse:YES andCurved:YES]];
+}
+
+%new
+- (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
+    if(operation == UINavigationControllerOperationPush) {
+        return [self interactionController].interactionInProgress ? [self pushAnimator] : [self pushCurvedAnimator];
+    } else if(operation == UINavigationControllerOperationPop) {
+        return [self interactionController].interactionInProgress ? [self popAnimator] : [self popCurvedAnimator];
+    }
+    return nil;
+}
+
+%new
+- (id<UIViewControllerInteractiveTransitioning>)navigationController:(UINavigationController *)navigationController interactionControllerForAnimationController:(id<UIViewControllerAnimatedTransitioning>)animationController {
+    if((DDCustomAnimator *)animationController) {
+        if(((DDCustomAnimator *)animationController).reverse) {
+            return self.interactionController.interactionInProgress ? self.interactionController : nil;
+        }
+    }
+    return nil;
+}
+
+%new
+-(DDCustomInteraction *)interactionController {
+    return objc_getAssociatedObject(self, @selector(interactionController));
+}
+
+%new
+-(void)setInteractionController:(DDCustomInteraction *)obj {
+    objc_setAssociatedObject(self, @selector(interactionController), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%new
+-(DDCustomAnimator *)pushAnimator {
+    return objc_getAssociatedObject(self, @selector(pushAnimator));
+}
+
+%new
+-(void)setPushAnimator:(DDCustomAnimator *)obj {
+    objc_setAssociatedObject(self, @selector(pushAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%new
+-(DDCustomAnimator *)popAnimator {
+    return objc_getAssociatedObject(self, @selector(popAnimator));
+}
+
+%new
+-(void)setPopAnimator:(DDCustomAnimator *)obj {
+    objc_setAssociatedObject(self, @selector(popAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%new
+-(DDCustomAnimator *)pushCurvedAnimator {
+    return objc_getAssociatedObject(self, @selector(pushCurvedAnimator));
+}
+
+%new
+-(void)setPushCurvedAnimator:(DDCustomAnimator *)obj {
+    objc_setAssociatedObject(self, @selector(pushCurvedAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%new
+-(DDCustomAnimator *)popCurvedAnimator {
+    return objc_getAssociatedObject(self, @selector(popCurvedAnimator));
+}
+
+%new
+-(void)setPopCurvedAnimator:(DDCustomAnimator *)obj {
+    objc_setAssociatedObject(self, @selector(popCurvedAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 %end
