@@ -1,5 +1,13 @@
-.DS_Store
+# gitignore for Theos
+
+*.deb
+_/
+theos/
 theos
 .theos
-packages
+packages/
+./packages/
+obj/
+./obj/
 obj
+.DS_Store
