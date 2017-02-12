@@ -10,4 +10,7 @@
 +(UIColor *)listSubtitleColour;
 +(UIColor *)insideChatViewLabelColour;
 +(UIColor *)insideChatViewLabelSubtleColour;
++(UIColor *)entryFieldButtonColor;
++(UIColor *)entryFieldCoverFillColor;
++(UIColor *)entryFieldCoverBorderColor;
 @end

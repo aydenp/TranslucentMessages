@@ -7,7 +7,7 @@
 }
 
 +(UIColor *)viewBackgroundColour {
-    return [UIColor colorWithWhite:1 alpha:0.1];
+    return [UIColor colorWithWhite:1 alpha:0.05];
 }
 
 +(UIColor *)separatorColour {
@@ -32,6 +32,18 @@
 
 +(UIColor *)insideChatViewLabelSubtleColour {
     return [UIColor colorWithWhite:1 alpha:0.6];
+}
+
++(UIColor *)entryFieldButtonColor {
+    return [UIColor colorWithWhite:1 alpha:0.4];
+}
+
++(UIColor *)entryFieldCoverFillColor {
+    return [UIColor colorWithWhite:1 alpha:0.25];
+}
+
++(UIColor *)entryFieldCoverBorderColor {
+    return [UIColor colorWithWhite:1 alpha:0.3];
 }
 
 @end

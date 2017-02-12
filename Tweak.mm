@@ -69,19 +69,170 @@
     return %orig;
 }
 
+-(UIColor *)entryFieldCoverFillColor {
+    return [DDTMColours entryFieldCoverFillColor];
+}
+
+-(UIColor *)entryFieldCoverBorderColor {
+    return [DDTMColours entryFieldCoverBorderColor];
+}
+
+-(UIKeyboardAppearance)keyboardAppearance {
+    return UIKeyboardAppearanceDark;
+}
+
 %end
 
 // MARK: - Make navigation bar more translucent
 
-%hook _UIBarBackground
+%hook CKAvatarNavigationBar
 
--(UIColor *)_colorForStyle:(long long)arg1 {
-    UIColor *color = %orig;
-    return [color colorWithAlphaComponent:0.1];
+-(void)_commonNavBarInit {
+    %orig;
+    _UIBarBackground *barBackgroundView = MSHookIvar<_UIBarBackground *>(self, "_barBackgroundView");
+    [barBackgroundView setDDIsInAvatarNavigationBar:YES];
 }
 
+%end
+
+%hook _UIBarBackground
+
 -(id)_blurWithStyle:(long long)arg1 tint:(id)arg2 {
-    return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    if([self DDIsInAvatarNavigationBar]) {
+        return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
+    }
+    return %orig;
+}
+
+%new
+-(BOOL)DDIsInAvatarNavigationBar {
+    NSNumber *isInAvatarNavigationBar = objc_getAssociatedObject(self, @selector(DDIsInAvatarNavigationBar));
+    return [isInAvatarNavigationBar boolValue];
+}
+
+%new
+-(void)setDDIsInAvatarNavigationBar:(BOOL)isInAvatarNavigationBar {
+    objc_setAssociatedObject(self, @selector(DDIsInAvatarNavigationBar), @(isInAvatarNavigationBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%end
+
+%hook CKMessageEntryView
+
+-(id)initWithFrame:(CGRect)arg1 marginInsets:(UIEdgeInsets)arg2 shouldAllowImpact:(BOOL)arg3 shouldShowSendButton:(BOOL)arg4 shouldShowSubject:(BOOL)arg5 shouldShowPluginButtons:(BOOL)arg6 shouldShowCharacterCount:(BOOL)arg7 {
+    self = %orig;
+    [self DDInitialize];
+    return self;
+}
+
+-(id)initForFullscreenAppViewWithFrame:(CGRect)arg1 marginInsets:(UIEdgeInsets)arg2 shouldAllowImpact:(BOOL)arg3 shouldShowSendButton:(BOOL)arg4 shouldShowSubject:(BOOL)arg5 shouldShowBrowserButton:(BOOL)arg6 shouldShowCharacterCount:(BOOL)arg7 {
+    self = %orig;
+    [self DDInitialize];
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)arg1 marginInsets:(UIEdgeInsets)arg2 shouldShowSendButton:(BOOL)arg3 shouldShowSubject:(BOOL)arg4 shouldShowPluginButtons:(BOOL)arg5 shouldShowCharacterCount:(BOOL)arg6 {
+    self = %orig;
+    [self DDInitialize];
+    return self;
+}
+
+%new
+-(void)DDInitialize {
+    [[self backdropView] setDDIsMessageEntryView:YES];
+}
+
+%end
+
+%hook _UIBackdropView
+
+-(UIView *)colorTintView {
+    UIView *arg1 = %orig;
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    return arg1;
+}
+
+-(void)setColorTintView:(UIView *)arg1 {
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    %orig;
+}
+
+-(UIView *)effectView {
+    UIView *arg1 = %orig;
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    return arg1;
+}
+
+-(void)setEffectView:(UIView *)arg1 {
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    %orig;
+}
+
+-(UIView *)colorBurnTintView {
+    UIView *arg1 = %orig;
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    return arg1;
+}
+
+-(void)setColorBurnTintView:(UIView *)arg1 {
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    %orig;
+}
+
+-(UIView *)grayscaleTintView {
+    UIView *arg1 = %orig;
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    return arg1;
+}
+
+-(void)setGrayscaleTintView:(UIView *)arg1 {
+    if([self DDIsMessageEntryView]) {
+        [arg1 setAlpha:0];
+    }
+    %orig;
+}
+
+%new
+-(BOOL)DDIsMessageEntryView {
+    NSNumber *isMessageEntryView = objc_getAssociatedObject(self, @selector(DDIsMessageEntryView));
+    return [isMessageEntryView boolValue];
+}
+
+%new
+-(void)setDDIsMessageEntryView:(BOOL)isMessageEntryView {
+    objc_setAssociatedObject(self, @selector(DDIsMessageEntryView), @(isMessageEntryView), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%end
+
+%hook CKEntryViewButton
+
+-(UIColor *)ckTintColor {
+    %log;
+    NSLog(@"[TranslucentMessages] FUCK FFS");
+    if([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) {
+        NSLog(@"[TranslucentMessages] FUCK YEAH");
+        return [DDTMColours entryFieldButtonColor];
+    }
+    return %orig;
+}
+
+-(void)setCkTintColor:(UIColor *)tintColor {
+    %orig([self ckTintColor]);
 }
 
 %end

@@ -33,6 +33,9 @@
 -(void)setDarkeningTintAlpha:(double)arg1;
 -(void)setColorOffsetAlpha:(double)arg1;
 -(void)setColorBurnTintAlpha:(double)arg1;
+-(void)setFilterMaskAlpha:(double)arg1;
+-(void)setColorTintMaskAlpha:(double)arg1;
+-(void)setGrayscaleTintMaskAlpha:(double)arg1;
 @end
 
 @interface UIVisualEffect (EffectSettings)
@@ -40,4 +43,39 @@
 @end
 
 @interface CKAvatarNavigationBar : UINavigationBar
+@end
+
+@interface _UIBackdropView : UIView
+-(void)setColorTintView:(UIView *)arg1;
+-(BOOL)DDIsMessageEntryView;
+-(void)setDDIsMessageEntryView:(BOOL)isMessageEntryView;
+@end
+
+@interface CKMessageEntryView : UIView {
+    _UIBackdropView * _backdropView;
+}
+-(void)DDInitialize;
+-(id)backdropView;
+@end
+
+@interface _UIBackdropEffectView : UIView
+@end
+
+@interface _UIBarBackground : UIView
+-(BOOL)DDIsInAvatarNavigationBar;
+-(void)setDDIsInAvatarNavigationBar:(BOOL)isInAvatarNavigationBar;
+@end
+
+@interface CKMessageEntryTextView : UITextView
+@end
+
+@interface CKMessageEntryRichTextView : CKMessageEntryTextView
+@end
+
+@interface CKMessageEntryContentView : UIScrollView
+@end
+
+@interface CKEntryViewButton : UIButton
+-(void)setCkTintColor:(UIColor *)arg1;
+-(UIColor *)ckTintColor;
 @end
