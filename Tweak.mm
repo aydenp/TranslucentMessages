@@ -244,8 +244,7 @@
 %new
 -(void)setDDSpecialEffectsActive:(BOOL)active {
     [self.backdropView setDDSpecialEffectsActive:active];
-    [self.backdropView setHidden:!active];
-    [self setBackgroundColor:(active ? [UIColor clearColor] : [UIColor colorWithWhite:0.3 alpha:1])];
+    [self.backdropView setBackgroundColor:(active ? [UIColor clearColor] : [UIColor colorWithWhite:0.3 alpha:0.8])];
 }
 
 %end
@@ -254,14 +253,14 @@
 
 -(UIView *)colorTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+    if([self DDIsMessageEntryView]) {
         [arg1 setHidden:YES];
     }
     return arg1;
 }
 
 -(void)setColorTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+    if([self DDIsMessageEntryView]) {
         [arg1 setHidden:YES];
     }
     %orig;
@@ -269,14 +268,14 @@
 
 -(UIView *)colorBurnTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+    if([self DDIsMessageEntryView]) {
         [arg1 setHidden:YES];
     }
     return arg1;
 }
 
 -(void)setColorBurnTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+    if([self DDIsMessageEntryView]) {
         [arg1 setHidden:YES];
     }
     %orig;
@@ -284,14 +283,14 @@
 
 -(UIView *)grayscaleTintView {
     UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+    if([self DDIsMessageEntryView]) {
         [arg1 setHidden:YES];
     }
     return arg1;
 }
 
 -(void)setGrayscaleTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView] && [self DDSpecialEffectsActive]) {
+    if([self DDIsMessageEntryView]) {
         [arg1 setHidden:YES];
     }
     %orig;
@@ -318,10 +317,6 @@
 -(void)setDDSpecialEffectsActive:(BOOL)active {
     %log;
     objc_setAssociatedObject(self, @selector(DDSpecialEffectsActive), @(active), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    BOOL hide = [self DDIsMessageEntryView] & active;
-    [[self colorTintView] setHidden:hide];
-    [[self colorBurnTintView] setHidden:hide];
-    [[self grayscaleTintView] setHidden:hide];
 }
 
 %end
