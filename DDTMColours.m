@@ -6,8 +6,16 @@
     return UIBackgroundStyleBlur;
 }
 
++(UIBackgroundStyle)darkBlurStyle {
+    return UIBackgroundStyleExtraDarkBlur;
+}
+
 +(UIColor *)viewBackgroundColour {
     return [UIColor colorWithWhite:1 alpha:0.05];
+}
+
++(UIColor *)darkViewBackgroundColour {
+    return [UIColor colorWithWhite:0 alpha:0.05];
 }
 
 +(UIColor *)separatorColour {

@@ -20,12 +20,34 @@
 }
 
 -(void)_setBackgroundStyle:(UIBackgroundStyle)style {
-    %orig([DDTMColours blurStyle]);
+    %orig([NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkBlurStyle] : [DDTMColours blurStyle]);
 }
 
 %end
 
 // MARK: - Theme Changes
+
+%hook CKUIBehavior
+
+%new
++(CKUIBehavior *)currentBehavior {
+    if (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad) {
+        return [NSClassFromString(@"CKUIBehaviorPad") sharedBehaviors];
+    } else {
+        return [NSClassFromString(@"CKUIBehaviorPhone") sharedBehaviors];
+    }
+}
+
+%new
++(BOOL)hasDarkTheme {
+    CKUIBehavior *behavior = [NSClassFromString(@"CKUIBehavior") currentBehavior];
+    if([[behavior theme] isKindOfClass:NSClassFromString(@"CKUIThemeDark")]) {
+        return YES;
+    }
+    return NO;
+}
+
+%end
 
 %hook CKUIThemeLight
 
@@ -35,6 +57,10 @@
 
 -(UIColor *)conversationListBackgroundColor {
     return [DDTMColours viewBackgroundColour];
+}
+
+-(UIColor *)conversationListCellColor {
+    return [UIColor clearColor];
 }
 
 -(UIColor *)conversationListSenderColor {
@@ -61,12 +87,12 @@
     return [DDTMColours insideChatViewLabelColour];
 }
 
--(UIColor *)transcriptDeemphasizedTextColor {
-    return [DDTMColours insideChatViewLabelSubtleColour];
+-(UIColor *)transcriptBigEmojiColor {
+    return [DDTMColours insideChatViewLabelColour];
 }
 
--(UIColor *)appTintColor {
-    return %orig;
+-(UIColor *)transcriptDeemphasizedTextColor {
+    return [DDTMColours insideChatViewLabelSubtleColour];
 }
 
 -(UIColor *)entryFieldCoverFillColor {
@@ -79,6 +105,63 @@
 
 -(UIKeyboardAppearance)keyboardAppearance {
     return UIKeyboardAppearanceDark;
+}
+
+%end
+
+
+%hook CKUIThemeDark
+
+-(UIColor *)messagesControllerBackgroundColor {
+    return [DDTMColours darkViewBackgroundColour];
+}
+
+-(UIColor *)conversationListBackgroundColor {
+    return [DDTMColours darkViewBackgroundColour];
+}
+
+-(UIColor *)conversationListCellColor {
+    return [UIColor clearColor];
+}
+
+-(UIColor *)conversationListSenderColor {
+    return [DDTMColours listTitleColour];
+}
+
+-(UIColor *)conversationListSummaryColor {
+    return [DDTMColours listSubtitleColour];
+}
+
+-(UIColor *)conversationListDateColor {
+    return [DDTMColours listSubtitleColour];
+}
+
+-(id)gray_balloonColors {
+    return @[[UIColor colorWithWhite:0.3 alpha:0.45], [UIColor colorWithWhite:0.3 alpha:0.3]];
+}
+
+-(UIColor *)stickerDetailsSubheaderTextColor {
+    return [DDTMColours insideChatViewLabelColour];
+}
+
+-(UIColor *)transcriptTextColor {
+    return [DDTMColours insideChatViewLabelColour];
+}
+
+-(UIColor *)transcriptBigEmojiColor {
+    return [DDTMColours insideChatViewLabelColour];
+}
+
+-(UIColor *)transcriptDeemphasizedTextColor {
+    return [DDTMColours insideChatViewLabelSubtleColour];
+}
+
+-(UIColor *)entryFieldCoverFillColor {
+    return [DDTMColours entryFieldCoverFillColor];
+}
+
+-(UIColor *)entryFieldCoverBorderColor {
+    return [DDTMColours entryFieldCoverBorderColor];
 }
 
 %end
@@ -98,7 +181,8 @@
 %hook _UIBarBackground
 
 -(id)_blurWithStyle:(long long)arg1 tint:(id)arg2 {
-    if([self DDIsInAvatarNavigationBar]) {
+    %log;
+    if([self DDIsInAvatarNavigationBar] && arg1 == 0) {
         return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     }
     return %orig;
@@ -271,7 +355,7 @@
 %new
 -(void)handleBG:(UIView *)view {
     [view setOpaque:NO];
-    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.7 : 0)]];
+    [view setBackgroundColor:[[DDTMColours viewBackgroundColour] colorWithAlphaComponent:([self DDPreviewing] ? 0.5 : 0)]];
 }
 
 %end
@@ -283,17 +367,6 @@
 -(void)loadView {
     %orig;
     [self.searchController.searchBar setDDConvoSearchBar:YES];
-}
-
--(UIView *)view {
-    UIView *orig = %orig;
-    [self setDDProperTransparencyOnView:orig];
-    return orig;
-}
-
--(void)setView:(UIView *)orig {
-    [self setDDProperTransparencyOnView:orig];
-    %orig;
 }
 
 -(void)setSearchController:(UISearchController *)arg1 {
@@ -389,7 +462,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %new
 -(void)setDDConvoSearchBar:(BOOL)convoSearchBar {
-    %log;
     objc_setAssociatedObject(self, @selector(DDConvoSearchBar), @(convoSearchBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     [self DDCommonInit];
 }
@@ -409,30 +481,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %new
 -(void)setDDPreviewing:(BOOL)previewing {
     objc_setAssociatedObject(self, @selector(DDPreviewing), @(previewing), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-%end
-
-// MARK: - DDViewControllerTransparency Hooks
-
-%hook UIViewController
-
-%new
--(void)setDDProperTransparencyOnView:(UIView *)view {
-    [self setDDHasProperTransparency:YES];
-    [view setBackgroundColor:[DDTMColours viewBackgroundColour]];
-    [view setOpaque:NO];
-}
-
-%new
--(BOOL)DDHasProperTransparency {
-    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDHasProperTransparency));
-    return [previewing boolValue];
-}
-
-%new
--(void)setDDHasProperTransparency:(BOOL)hasProperTransparency {
-    objc_setAssociatedObject(self, @selector(DDHasProperTransparency), @(hasProperTransparency), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 %end

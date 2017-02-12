@@ -87,3 +87,19 @@
 -(void)setDDConvoSearchBar:(BOOL)convoSearchBar;
 -(void)DDCommonInit;
 @end
+
+@interface CKUITheme : NSObject
+@end
+
+@interface CKUIBehavior : NSObject
++(id)sharedBehaviors;
++(CKUIBehavior *)currentBehavior;
++(BOOL)hasDarkTheme;
+-(CKUITheme *)theme;
+@end
+
+@interface CKUIBehaviorPhone : CKUIBehavior
+@end
+
+@interface CKUIBehaviorPad : CKUIBehavior
+@end
