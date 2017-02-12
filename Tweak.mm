@@ -459,14 +459,16 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %new
 -(void)DDCommonInit {
     [self setBarTintColor:[self barTintColor]];
-    UITextField *searchField = MSHookIvar<UITextField *>(self, "_searchField");
-    [searchField setBackgroundColor:[DDTMColours searchBarFieldTintColour]];
+    if([self DDConvoSearchBar]) {
+        UITextField *searchField = MSHookIvar<UITextField *>(self, "_searchField");
+        [searchField setBackgroundColor:[NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkSearchBarFieldTintColour] : [DDTMColours searchBarFieldTintColour]];
+    }
 }
 
 
 -(UIColor *)barTintColor {
     if([self DDConvoSearchBar]) {
-        return [DDTMColours searchBarTintColour];
+        return [NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkSearchBarTintColour] : [DDTMColours searchBarTintColour];
     }
     return %orig;
 }

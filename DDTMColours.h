@@ -19,4 +19,6 @@
 +(UIColor *)darkEntryFieldCoverBorderColor;
 +(UIColor *)searchBarTintColour;
 +(UIColor *)searchBarFieldTintColour;
++(UIColor *)darkSearchBarTintColour;
++(UIColor *)darkSearchBarFieldTintColour;
 @end

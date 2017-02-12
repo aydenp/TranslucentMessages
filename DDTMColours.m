@@ -70,4 +70,12 @@
     return [UIColor colorWithWhite:1 alpha:0.4];
 }
 
++(UIColor *)darkSearchBarTintColour {
+    return [UIColor colorWithWhite:0 alpha:0.2];
+}
+
++(UIColor *)darkSearchBarFieldTintColour {
+    return [UIColor colorWithWhite:1 alpha:0.1];
+}
+
 @end
