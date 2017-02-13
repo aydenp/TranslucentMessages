@@ -1,4 +1,7 @@
 #import <UIKit/UIKit.h>
+#import "SMSHeaders.h"
+
+@class CKCoreChatController;
 
 @interface DDCustomInteraction : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
 @property (nonatomic) BOOL interactionInProgress;

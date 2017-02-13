@@ -2,6 +2,8 @@
 #import "DDCustomAnimator.h"
 #import "DDCustomInteraction.h"
 
+@class DDCustomInteraction;
+
 @interface SMSApplication : UIApplication {
     UIWindow* _window;
 }
@@ -140,6 +142,7 @@
 @end
 
 @interface CKCoreChatController : CKScrollViewController
+-(UIScrollView *)scrollView;
 @end
 
 @interface CKChatController : CKCoreChatController
