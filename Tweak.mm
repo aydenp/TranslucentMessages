@@ -341,7 +341,6 @@ static void settingsChanged(CFNotificationCenterRef center,
 
 %new
 -(void)setDDSpecialEffectsActive:(BOOL)active {
-    %log;
     objc_setAssociatedObject(self, @selector(DDSpecialEffectsActive), @(active), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
