@@ -24,13 +24,15 @@
     progress = (CGFloat)fminf(fmaxf(progress, 0), 1);
     
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
-        self.interactionInProgress = YES;
-        self.wasViewController = self.viewController.visibleViewController;
-        if([self.wasViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
-            [[((CKCoreChatController *)self.wasViewController) scrollView] setScrollEnabled:NO];
+        if([self.viewController.visibleViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
+            self.interactionInProgress = YES;
+            self.wasViewController = self.viewController.visibleViewController;
+            if([self.wasViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
+                [[((CKCoreChatController *)self.wasViewController) scrollView] setScrollEnabled:NO];
+            }
+            [self.wasViewController.view setUserInteractionEnabled:NO];
+            [self.viewController popViewControllerAnimated:YES];
         }
-        [self.wasViewController.view setUserInteractionEnabled:NO];
-        [self.viewController popViewControllerAnimated:YES];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         self._shouldCompleteTransition = progress > 0.5;
         [self updateInteractiveTransition:progress];

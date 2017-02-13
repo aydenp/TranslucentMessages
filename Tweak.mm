@@ -573,10 +573,12 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %new
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
-    if(operation == UINavigationControllerOperationPush) {
-        return [self interactionController].interactionInProgress ? [self pushAnimator] : [self pushCurvedAnimator];
-    } else if(operation == UINavigationControllerOperationPop) {
-        return [self interactionController].interactionInProgress ? [self popAnimator] : [self popCurvedAnimator];
+    if([fromVC isKindOfClass:NSClassFromString(@"CKCoreChatController")] || [toVC isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
+        if(operation == UINavigationControllerOperationPush) {
+            return [self interactionController].interactionInProgress ? [self pushAnimator] : [self pushCurvedAnimator];
+        } else if(operation == UINavigationControllerOperationPop) {
+            return [self interactionController].interactionInProgress ? [self popAnimator] : [self popCurvedAnimator];
+        }
     }
     return nil;
 }
