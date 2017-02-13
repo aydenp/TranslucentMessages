@@ -23,7 +23,6 @@
     CGFloat progress = translation.x / gestureRecognizer.view.superview.frame.size.width;
     progress = (CGFloat)fminf(fmaxf(progress, 0), 1);
     
-    NSLog(@"%ld", (long)gestureRecognizer.state);
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         self.interactionInProgress = YES;
         self.wasViewController = self.viewController.visibleViewController;
