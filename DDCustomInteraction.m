@@ -37,9 +37,6 @@
         [self updateInteractiveTransition:progress];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         self.interactionInProgress = NO;
-        /*if(self.wasViewController && self.wasViewController != self.viewController.visibleViewController) {
-            [self.viewController pushViewController:self.wasViewController animated:NO];
-        }*/
         [self cancelInteractiveTransition];
         if([self.wasViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
             [[((CKCoreChatController *)self.wasViewController) scrollView] setScrollEnabled:YES];
@@ -49,9 +46,6 @@
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.interactionInProgress = NO;
         if(!self._shouldCompleteTransition) {
-            /*if(self.wasViewController && self.wasViewController != self.viewController.visibleViewController) {
-                [self.viewController pushViewController:self.wasViewController animated:NO];
-            }*/
             [self cancelInteractiveTransition];
             if([self.wasViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
                 [[((CKCoreChatController *)self.wasViewController) scrollView] setScrollEnabled:YES];
