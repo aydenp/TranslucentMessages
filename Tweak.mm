@@ -579,11 +579,11 @@ commitViewController:(UIViewController *)viewControllerToCommit {
             canDoIt = true;
         }
     }
-    if([toVC isKindOfClass:NSClassFromString(@"CKNavigationController")]) {
+    /*if([toVC isKindOfClass:NSClassFromString(@"CKNavigationController")]) {
         if([((CKNavigationController *)toVC).visibleViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
             canDoIt = true;
         }
-    }
+    }*/
     if(canDoIt) {
         if(operation == UINavigationControllerOperationPush) {
             return [self interactionController].interactionInProgress ? [self pushAnimator] : [self pushCurvedAnimator];
