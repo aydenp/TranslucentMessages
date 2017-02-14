@@ -575,15 +575,13 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 - (id<UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController animationControllerForOperation:(UINavigationControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC {
     BOOL canDoIt = false;
     if([fromVC isKindOfClass:NSClassFromString(@"CKNavigationController")]) {
-        if([((CKNavigationController *)fromVC).visibleViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
+        if([((CKNavigationController *)fromVC).visibleViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")] || [((CKNavigationController *)fromVC).visibleViewController isKindOfClass:NSClassFromString(@"CKConversationListController")]) {
             canDoIt = true;
         }
     }
-    /*if([toVC isKindOfClass:NSClassFromString(@"CKNavigationController")]) {
-        if([((CKNavigationController *)toVC).visibleViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
-            canDoIt = true;
-        }
-    }*/
+    if([fromVC isKindOfClass:NSClassFromString(@"CKConversationListController")]) {
+        canDoIt = true;
+    }
     if(canDoIt) {
         if(operation == UINavigationControllerOperationPush) {
             return [self interactionController].interactionInProgress ? [self pushAnimator] : [self pushCurvedAnimator];
