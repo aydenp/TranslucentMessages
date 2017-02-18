@@ -17,4 +17,4 @@ SUBPROJECTS += Settings
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-install::
-	install.exec "killall SpringBoard"
+	install.exec "killall MobileSMS Preferences"
