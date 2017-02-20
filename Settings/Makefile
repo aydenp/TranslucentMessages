@@ -4,9 +4,9 @@ GO_EASY_ON_ME = 1
 
 include $(THEOS)/makefiles/common.mk
 
-BUNDLE_NAME = BubbleNotificationsSettings
+BUNDLE_NAME = TranslucentMessagesSettings
 $(BUNDLE_NAME)_CFLAGS = -fobjc-arc
-$(BUNDLE_NAME)_FILES = BubbleNotificationsSettings.mm
+$(BUNDLE_NAME)_FILES = TranslucentMessagesSettings.mm
 $(BUNDLE_NAME)_INSTALL_PATH = /Library/PreferenceBundles
 $(BUNDLE_NAME)_PRIVATE_FRAMEWORKS = Preferences
 
@@ -14,4 +14,4 @@ include $(THEOS_MAKE_PATH)/bundle.mk
 
 internal-stage::
 	$(ECHO_NOTHING)mkdir -p $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences$(ECHO_END)
-	$(ECHO_NOTHING)cp entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/BubbleNotificationsSettings.plist$(ECHO_END)
+	$(ECHO_NOTHING)cp entry.plist $(THEOS_STAGING_DIR)/Library/PreferenceLoader/Preferences/TranslucentMessagesSettings.plist$(ECHO_END)

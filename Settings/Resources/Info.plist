@@ -5,9 +5,9 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>BubbleNotificationsSettings</string>
+	<string>TranslucentMessagesSettings</string>
 	<key>CFBundleIdentifier</key>
-	<string>applebetas.ios.tweaks.bubblenotifications</string>
+	<string>applebetas.ios.tweaks.translucentmessages</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -23,6 +23,6 @@
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>NSPrincipalClass</key>
-	<string>BubbleNotificationsSettingsController</string>
+	<string>TranslucentMessagesSettingsController</string>
 </dict>
 </plist>
