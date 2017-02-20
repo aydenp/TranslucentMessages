@@ -1,10 +1,10 @@
 {
 	entry = {
-		bundle = "TranslucentMessagesSettings";
+		bundle = "BubbleNotificationsSettings";
 		cell = PSLinkCell;
-		detail = "TranslucentMessagesSettingsController";
+		detail = "BubbleNotificationsSettingsController";
 		icon = "icon.png";
 		isController = 1;
-		label = "TranslucentMessages";
+		label = "BubbleNotifications";
 	};
 }

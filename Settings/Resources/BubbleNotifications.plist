@@ -7,10 +7,6 @@
 	<key>items</key>
 	<array>
 		<dict>
-			<key>footerAlignment</key>
-			<integer>1</integer>
-			<key>footerText</key>
-			<string>Tip: TranslucentMessages can combine with DarkMessages by Sticktron to create a vibrant and beautiful dark mode. DarkMessages is available in BigBoss!</string>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
@@ -24,11 +20,11 @@
 			<key>key</key>
 			<string>Enabled</string>
 			<key>defaults</key>
-			<string>applebetas.ios.tweaks.translucentmessages</string>
+			<string>applebetas.ios.tweaks.bubblenotifications</string>
 			<key>default</key>
 			<true/>
 			<key>PostNotification</key>
-			<string>applebetas.ios.tweaks.translucentmessages.changed</string>
+			<string>applebetas.ios.tweaks.bubblenotifications.changed</string>
 		</dict>
 		<dict>
 			<key>label</key>
@@ -53,10 +49,6 @@
 			<string>PSButtonCell</string>
 		</dict>
 		<dict>
-			<key>footerText</key>
-			<string>Thanks for purchasing TranslucentMessages!</string>
-			<key>footerAlignment</key>
-			<integer>1</integer>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>

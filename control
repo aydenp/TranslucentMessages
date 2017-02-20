@@ -1,9 +1,9 @@
-Package: applebetas.ios.tweak.translucentmessages
-Name: TranslucentApps
+Package: applebetas.ios.tweak.bubblenotifications
+Name: BubbleNotifications
 Depends: mobilesubstrate, firmware (>= 10.0), preferenceloader
-Version: 1.1.0
+Version: 1.0
 Architecture: iphoneos-arm
-Description: Adds a beautiful blurred effect to your messages app and more, letting you see your wallpaper through them.
+Description: A complete redesign of iOS 10's notifications!
 Maintainer: AppleBetas
 Author: AppleBetas
 Section: Tweaks
