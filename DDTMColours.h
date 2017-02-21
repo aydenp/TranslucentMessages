@@ -29,6 +29,8 @@
 +(UIBackgroundStyle)darkBlurStyle;
 +(UIColor *)viewBackgroundColour;
 +(UIColor *)darkViewBackgroundColour;
++(UIColor *)viewPreviewingBackgroundColour;
++(UIColor *)darkViewPreviewingBackgroundColour;
 +(UIColor *)separatorColour;
 +(UIColor *)selectionColour;
 +(UIColor *)listTitleColour;

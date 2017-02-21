@@ -378,8 +378,8 @@ static void settingsChanged(CFNotificationCenterRef center,
 
 %new
 -(BOOL)DDSpecialEffectsActive {
-    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDSpecialEffectsActive));
-    return [previewing boolValue];
+    NSNumber *active = objc_getAssociatedObject(self, @selector(DDSpecialEffectsActive));
+    return [active boolValue];
 }
 
 %new
@@ -445,7 +445,11 @@ static void settingsChanged(CFNotificationCenterRef center,
 %new
 -(void)handleBG:(UIView *)view {
     [view setOpaque:NO];
-    [view setBackgroundColor:[([NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkViewBackgroundColour] : [DDTMColours viewBackgroundColour]) colorWithAlphaComponent:([self DDPreviewing] ? 0.5 : 0)]];
+    if([self DDPreviewing]) {
+        [view setBackgroundColor:([NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkViewPreviewingBackgroundColour] : [DDTMColours viewPreviewingBackgroundColour])];
+    } else {
+        [view setBackgroundColor:[UIColor clearColor]];
+    }
 }
 
 %end

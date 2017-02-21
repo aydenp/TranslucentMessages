@@ -41,6 +41,14 @@
     return [UIColor colorWithWhite:0 alpha:0.05];
 }
 
++(UIColor *)viewPreviewingBackgroundColour {
+    return [UIColor colorWithWhite:1 alpha:0.5];
+}
+
++(UIColor *)darkViewPreviewingBackgroundColour {
+    return [UIColor colorWithWhite:0.15 alpha:0.7];
+}
+
 +(UIColor *)separatorColour {
     return [UIColor colorWithWhite:1 alpha:0.2];
 }
