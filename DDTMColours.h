@@ -27,8 +27,10 @@
 @interface DDTMColours : NSObject
 +(UIBackgroundStyle)blurStyle;
 +(UIBackgroundStyle)darkBlurStyle;
++(UIBackgroundStyle)transparentStyle;
 +(UIColor *)viewBackgroundColour;
 +(UIColor *)darkViewBackgroundColour;
++(UIColor *)darkViewTransparentBackgroundColour;
 +(UIColor *)viewPreviewingBackgroundColour;
 +(UIColor *)darkViewPreviewingBackgroundColour;
 +(UIColor *)separatorColour;

@@ -32,6 +32,7 @@
 #import "DDCustomInteraction.h"
 
 static BOOL isEnabled = YES;
+static BOOL shouldBlur = YES;
 
 static void loadSettings() {
     NSDictionary *settings = nil;
@@ -44,6 +45,9 @@ static void loadSettings() {
     }
     if (settings && settings[@"Enabled"]) {
         isEnabled = [settings[@"Enabled"] boolValue];
+    }
+    if (settings && settings[@"BlurWallpaper"]) {
+        shouldBlur = [settings[@"BlurWallpaper"] boolValue];
     }
 }
 
@@ -63,7 +67,7 @@ static void settingsChanged(CFNotificationCenterRef center,
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     BOOL result = %orig;
-    [application _setBackgroundStyle:[DDTMColours blurStyle]];
+    [application _setBackgroundStyle:UIBackgroundStyleDefault];
     UIWindow *window = MSHookIvar<UIWindow *>(application, "_window");
     [window setBackgroundColor:[UIColor clearColor]];
     [window setOpaque:NO];
@@ -71,7 +75,11 @@ static void settingsChanged(CFNotificationCenterRef center,
 }
 
 -(void)_setBackgroundStyle:(UIBackgroundStyle)style {
-    %orig([NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkBlurStyle] : [DDTMColours blurStyle]);
+    if(shouldBlur) {
+        %orig([NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? [DDTMColours darkBlurStyle] : [DDTMColours blurStyle]);
+    } else {
+        %orig([DDTMColours transparentStyle]);
+    }
 }
 
 %end
@@ -176,15 +184,14 @@ static void settingsChanged(CFNotificationCenterRef center,
 
 %end
 
-
 %hook CKUIThemeDark
 
 -(UIColor *)messagesControllerBackgroundColor {
-    return [DDTMColours darkViewBackgroundColour];
+    return shouldBlur ? [DDTMColours darkViewBackgroundColour] : [DDTMColours darkViewTransparentBackgroundColour];
 }
 
 -(UIColor *)conversationListBackgroundColor {
-    return [DDTMColours darkViewBackgroundColour];
+    return shouldBlur ? [DDTMColours darkViewBackgroundColour] : [DDTMColours darkViewTransparentBackgroundColour];
 }
 
 -(UIColor *)conversationListCellColor {
