@@ -1,6 +1,6 @@
 export TARGET=iphone:clang
 ARCHS = armv7 arm64
-DEBUG = 1
+DEBUG = 0
 
 THEOS=/opt/theos
 
@@ -17,4 +17,4 @@ SUBPROJECTS += Settings
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-install::
-	install.exec "killall MobileSMS Preferences;sblaunch com.apple.MobileSMS"
+	install.exec "killall MobileSMS Preferences"
