@@ -33,10 +33,11 @@
 
 static BOOL isEnabled = YES;
 static BOOL shouldBlur = YES;
+static BOOL hasPromptedAboutReduceTransparency = NO;
+CFStringRef kPrefsAppID = CFSTR("applebetas.ios.tweaks.translucentmessages");
 
 static void loadSettings() {
     NSDictionary *settings = nil;
-    CFStringRef kPrefsAppID = CFSTR("applebetas.ios.tweaks.translucentmessages");
     CFPreferencesAppSynchronize(kPrefsAppID);
     CFArrayRef keyList = CFPreferencesCopyKeyList(kPrefsAppID, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
     if (keyList) {
@@ -48,6 +49,9 @@ static void loadSettings() {
     }
     if (settings && settings[@"BlurWallpaper"]) {
         shouldBlur = [settings[@"BlurWallpaper"] boolValue];
+    }
+    if (settings && settings[@"ReduceTransparencyPrompted"]) {
+        hasPromptedAboutReduceTransparency = [settings[@"ReduceTransparencyPrompted"] boolValue];
     }
 }
 
@@ -615,6 +619,19 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 -(void)viewDidLoad {
     %orig;
+
+    if(!hasPromptedAboutReduceTransparency && UIAccessibilityIsReduceTransparencyEnabled()) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"TranslucentMessages" message:@"We noticed that you have Reduce Transparency turned on in Settings (General > Accessibility > Increase Contrast). This may cause the transparency not to be applied to your messages app properly and recommend that you disable it.\nWe won't tell you again." preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+            [alert dismissViewControllerAnimated:YES completion:nil];
+        }]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentViewController:alert animated:YES completion:nil];
+            NSDictionary *dict = [NSDictionary dictionaryWithObject:@(YES) forKey:@"ReduceTransparencyPrompted"];
+            CFPreferencesSetMultiple((__bridge CFDictionaryRef)dict, nil, kPrefsAppID, kCFPreferencesCurrentUser, kCFPreferencesAnyHost);
+            CFPreferencesAppSynchronize(kPrefsAppID);
+        });
+    }
     
     [[self conversationListNavigationController] setDelegate:(id<UINavigationControllerDelegate>)self];
     
