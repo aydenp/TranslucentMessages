@@ -72,7 +72,7 @@
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.interactionInProgress = NO;
         CFTimeInterval timeInterval = CACurrentMediaTime() - self.transitionStartTime;
-        if(self._shouldCompleteTransition || (self._couldPossiblyCompleteTransition && timeInterval < 0.25)) {
+        if(self._shouldCompleteTransition || (self._couldPossiblyCompleteTransition && timeInterval < 0.15)) {
             [self finishInteractiveTransition];
         } else {
             [self cancelInteractiveTransition];

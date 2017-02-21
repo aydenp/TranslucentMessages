@@ -523,6 +523,14 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     %orig([self separatorColor]);
 }
 
+-(UIColor *)backgroundColor {
+    return [UIColor clearColor];
+}
+
+-(void)setBackgroundColor:(UIColor *)color {
+    %orig([self backgroundColor]);
+}
+
 %end
 
 %hook CKConversationListCell
