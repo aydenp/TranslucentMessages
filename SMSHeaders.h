@@ -139,6 +139,7 @@
 @interface CKEntryViewButton : UIButton
 -(void)setCkTintColor:(UIColor *)arg1;
 -(UIColor *)ckTintColor;
+-(long long)entryViewButtonType;
 @end
 
 @interface UISearchBar (DDConvoSearchBar)

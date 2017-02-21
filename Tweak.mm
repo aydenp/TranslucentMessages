@@ -392,14 +392,15 @@ static void settingsChanged(CFNotificationCenterRef center,
 %hook CKEntryViewButton
 
 -(UIColor *)ckTintColor {
-    if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")])) {
+    UIColor *tintColor = %orig;
+    if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) && (tintColor != [[NSClassFromString(@"CKUIBehavior") currentTheme] entryFieldHighlightedButtonColor]) && [self entryViewButtonType] != 4) {
         return [DDTMColours entryFieldButtonColor];
     }
-    return %orig;
+    return tintColor;
 }
 
 -(void)setCkTintColor:(UIColor *)tintColor {
-    if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) && (tintColor != [[NSClassFromString(@"CKUIBehavior") currentTheme] entryFieldHighlightedButtonColor])) {
+    if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) && (tintColor != [[NSClassFromString(@"CKUIBehavior") currentTheme] entryFieldHighlightedButtonColor]) && [self entryViewButtonType] != 4) {
         %orig([DDTMColours entryFieldButtonColor]);
     } else {
         %orig;
