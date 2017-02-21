@@ -627,6 +627,8 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 -(void)viewDidLoad {
     %orig;
+    
+    [self.view setBackgroundColor:[UIColor clearColor]];
 
     if(!hasPromptedAboutReduceTransparency && UIAccessibilityIsReduceTransparencyEnabled()) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"TranslucentMessages" message:@"We noticed that you have Reduce Transparency turned on in Settings (General > Accessibility > Increase Contrast). This may cause the transparency not to be applied to your messages app properly and recommend that you disable it.\nWe won't tell you again." preferredStyle:UIAlertControllerStyleAlert];
@@ -747,6 +749,30 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %new
 -(void)setDDPreviewing:(BOOL)previewing {
     objc_setAssociatedObject(self, @selector(DDPreviewing), @(previewing), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+%end
+
+// MARK: - GroupMe support
+
+%hook GMEmptyView
+
+-(void)setLabel:(UILabel *)arg1 {
+    [arg1 setTextColor:[UIColor whiteColor]];
+    %orig;
+}
+
+-(void)setImageView:(UIImageView *)arg1 {
+    [arg1 setTintColor:[UIColor whiteColor]];
+    %orig;
+}
+
+-(UIColor *)backgroundColor {
+    return [UIColor clearColor];
+}
+
+-(void)setBackgroundColor:(UIColor *)color {
+    %orig([self backgroundColor]);
 }
 
 %end

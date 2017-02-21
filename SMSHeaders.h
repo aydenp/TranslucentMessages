@@ -177,3 +177,10 @@
 @interface UIApplication (Private)
 - (void)terminateWithSuccess;
 @end
+
+// MARK: - GroupMe Support
+
+@interface GMEmptyView : UIView
+-(void)setLabel:(UILabel *)arg1 ;
+-(void)setImageView:(UIImageView *)arg1 ;
+@end
