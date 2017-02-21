@@ -69,6 +69,14 @@
     return [UIColor colorWithWhite:1 alpha:0.4];
 }
 
++(UIColor *)entryFieldPlaceholderColor {
+    return [UIColor colorWithWhite:1 alpha:0.65];
+}
+
++(UIColor *)entryFieldTextColor {
+    return [UIColor whiteColor];
+}
+
 +(UIColor *)entryFieldCoverFillColor {
     return [UIColor colorWithWhite:1 alpha:0.25];
 }

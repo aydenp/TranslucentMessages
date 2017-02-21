@@ -36,6 +36,8 @@
 +(UIColor *)insideChatViewLabelColour;
 +(UIColor *)insideChatViewLabelSubtleColour;
 +(UIColor *)entryFieldButtonColor;
++(UIColor *)entryFieldPlaceholderColor;
++(UIColor *)entryFieldTextColor;
 +(UIColor *)entryFieldCoverFillColor;
 +(UIColor *)entryFieldCoverBorderColor;
 +(UIColor *)darkEntryFieldCoverFillColor;

@@ -53,11 +53,13 @@
             if([self.wasViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
                 [[((CKCoreChatController *)self.wasViewController) scrollView] setScrollEnabled:NO];
             }
+            self.transitionStartTime = CACurrentMediaTime();
             [self.wasViewController.view setUserInteractionEnabled:NO];
             [self.viewController popViewControllerAnimated:YES];
         }
     } else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
         self._shouldCompleteTransition = progress > 0.5;
+        self._couldPossiblyCompleteTransition = progress > 0.05;
         [self updateInteractiveTransition:progress];
     } else if (gestureRecognizer.state == UIGestureRecognizerStateCancelled) {
         self.interactionInProgress = NO;
@@ -69,14 +71,15 @@
         self.wasViewController = nil;
     } else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
         self.interactionInProgress = NO;
-        if(!self._shouldCompleteTransition) {
+        CFTimeInterval timeInterval = CACurrentMediaTime() - self.transitionStartTime;
+        if(self._shouldCompleteTransition || (self._couldPossiblyCompleteTransition && timeInterval < 0.25)) {
+            [self finishInteractiveTransition];
+        } else {
             [self cancelInteractiveTransition];
             if([self.wasViewController isKindOfClass:NSClassFromString(@"CKCoreChatController")]) {
                 [[((CKCoreChatController *)self.wasViewController) scrollView] setScrollEnabled:YES];
             }
             [self.wasViewController.view setUserInteractionEnabled:YES];
-        } else {
-            [self finishInteractiveTransition];
         }
         self.wasViewController = nil;
     }

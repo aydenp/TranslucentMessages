@@ -162,6 +162,18 @@ static void settingsChanged(CFNotificationCenterRef center,
     return [UIColor clearColor];
 }
 
+-(UIColor *)entryFieldTextColor {
+    return [DDTMColours entryFieldTextColor];
+}
+
+-(UIColor *)entryFieldGrayColor {
+    return [DDTMColours entryFieldPlaceholderColor];
+}
+
+-(long long)toFieldBackdropStyle {
+    return 10100;
+}
+
 %end
 
 
@@ -221,6 +233,14 @@ static void settingsChanged(CFNotificationCenterRef center,
 
 -(UIColor *)entryFieldBackgroundColor {
     return [UIColor clearColor];
+}
+
+-(UIColor *)entryFieldTextColor {
+    return [DDTMColours entryFieldTextColor];
+}
+
+-(UIColor *)entryFieldGrayColor {
+    return [DDTMColours entryFieldPlaceholderColor];
 }
 
 %end

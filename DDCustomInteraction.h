@@ -22,6 +22,7 @@
 // SOFTWARE.
 
 #import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
 #import "SMSHeaders.h"
 
 @class CKCoreChatController;
@@ -29,6 +30,8 @@
 @interface DDCustomInteraction : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
 @property (nonatomic) BOOL interactionInProgress;
 @property (nonatomic) BOOL _shouldCompleteTransition;
+@property (nonatomic) BOOL _couldPossiblyCompleteTransition;
+@property (nonatomic) CFTimeInterval transitionStartTime;
 @property (nonatomic, strong) UIViewController *wasViewController;
 @property (nonatomic, strong) UINavigationController *viewController;
 
