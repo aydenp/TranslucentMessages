@@ -155,11 +155,11 @@ static void settingsChanged(CFNotificationCenterRef center,
 }
 
 -(UIColor *)entryFieldCoverFillColor {
-    return [DDTMColours entryFieldCoverFillColor];
+    return [DDTMColours entryFieldCoverFillColour];
 }
 
 -(UIColor *)entryFieldCoverBorderColor {
-    return [DDTMColours entryFieldCoverBorderColor];
+    return [DDTMColours entryFieldCoverBorderColour];
 }
 
 -(UIKeyboardAppearance)keyboardAppearance {
@@ -171,11 +171,11 @@ static void settingsChanged(CFNotificationCenterRef center,
 }
 
 -(UIColor *)entryFieldTextColor {
-    return [DDTMColours entryFieldTextColor];
+    return [DDTMColours entryFieldTextColour];
 }
 
 -(UIColor *)entryFieldGrayColor {
-    return [DDTMColours entryFieldPlaceholderColor];
+    return [DDTMColours entryFieldPlaceholderColour];
 }
 
 -(long long)toFieldBackdropStyle {
@@ -231,11 +231,11 @@ static void settingsChanged(CFNotificationCenterRef center,
 }
 
 -(UIColor *)entryFieldCoverFillColor {
-    return [DDTMColours darkEntryFieldCoverFillColor];
+    return [DDTMColours darkEntryFieldCoverFillColour];
 }
 
 -(UIColor *)entryFieldCoverBorderColor {
-    return [DDTMColours darkEntryFieldCoverBorderColor];
+    return [DDTMColours darkEntryFieldCoverBorderColour];
 }
 
 -(UIColor *)entryFieldBackgroundColor {
@@ -243,11 +243,11 @@ static void settingsChanged(CFNotificationCenterRef center,
 }
 
 -(UIColor *)entryFieldTextColor {
-    return [DDTMColours entryFieldTextColor];
+    return [DDTMColours entryFieldTextColour];
 }
 
 -(UIColor *)entryFieldGrayColor {
-    return [DDTMColours entryFieldPlaceholderColor];
+    return [DDTMColours entryFieldPlaceholderColour];
 }
 
 %end
@@ -401,14 +401,14 @@ static void settingsChanged(CFNotificationCenterRef center,
 -(UIColor *)ckTintColor {
     UIColor *tintColor = %orig;
     if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) && (tintColor != [[NSClassFromString(@"CKUIBehavior") currentTheme] entryFieldHighlightedButtonColor]) && [self entryViewButtonType] != 4) {
-        return [DDTMColours entryFieldButtonColor];
+        return [DDTMColours entryFieldButtonColour];
     }
     return tintColor;
 }
 
 -(void)setCkTintColor:(UIColor *)tintColor {
     if(([self.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")] || [self.superview.superview.superview isKindOfClass:NSClassFromString(@"CKMessageEntryView")]) && (tintColor != [[NSClassFromString(@"CKUIBehavior") currentTheme] entryFieldHighlightedButtonColor]) && [self entryViewButtonType] != 4) {
-        %orig([DDTMColours entryFieldButtonColor]);
+        %orig([DDTMColours entryFieldButtonColour]);
     } else {
         %orig;
     }

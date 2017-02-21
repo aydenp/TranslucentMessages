@@ -81,31 +81,31 @@
     return [UIColor colorWithWhite:1 alpha:0.6];
 }
 
-+(UIColor *)entryFieldButtonColor {
++(UIColor *)entryFieldButtonColour {
     return [UIColor colorWithWhite:1 alpha:0.4];
 }
 
-+(UIColor *)entryFieldPlaceholderColor {
++(UIColor *)entryFieldPlaceholderColour {
     return [UIColor colorWithWhite:1 alpha:0.65];
 }
 
-+(UIColor *)entryFieldTextColor {
++(UIColor *)entryFieldTextColour {
     return [UIColor whiteColor];
 }
 
-+(UIColor *)entryFieldCoverFillColor {
++(UIColor *)entryFieldCoverFillColour {
     return [UIColor colorWithWhite:1 alpha:0.25];
 }
 
-+(UIColor *)entryFieldCoverBorderColor {
++(UIColor *)entryFieldCoverBorderColour {
     return [UIColor colorWithWhite:1 alpha:0.3];
 }
 
-+(UIColor *)darkEntryFieldCoverFillColor {
++(UIColor *)darkEntryFieldCoverFillColour {
     return [UIColor colorWithWhite:1 alpha:0.1];
 }
 
-+(UIColor *)darkEntryFieldCoverBorderColor {
++(UIColor *)darkEntryFieldCoverBorderColour {
     return [UIColor colorWithWhite:1 alpha:0.15];
 }
 
