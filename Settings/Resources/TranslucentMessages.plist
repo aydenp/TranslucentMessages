@@ -53,10 +53,6 @@
 			<string>PSButtonCell</string>
 		</dict>
 		<dict>
-			<key>footerText</key>
-			<string>Thanks for purchasing TranslucentMessages!</string>
-			<key>footerAlignment</key>
-			<integer>1</integer>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
