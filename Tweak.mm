@@ -524,7 +524,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)backgroundColor {
-    return [[NSClassFromString(@"CKUIBehavior") currentTheme] messagesControllerBackgroundColor];
+    return [UIColor clearColor];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
@@ -628,7 +628,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 -(void)viewDidLoad {
     %orig;
     
-    [self.view setBackgroundColor:[UIColor clearColor]];
+    [self.view setBackgroundColor:[[NSClassFromString(@"CKUIBehavior") currentTheme] messagesControllerBackgroundColor]];
 
     if(!hasPromptedAboutReduceTransparency && UIAccessibilityIsReduceTransparencyEnabled()) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"TranslucentMessages" message:@"We noticed that you have Reduce Transparency turned on in Settings (General > Accessibility > Increase Contrast). This may cause the transparency not to be applied to your messages app properly and recommend that you disable it.\nWe won't tell you again." preferredStyle:UIAlertControllerStyleAlert];
