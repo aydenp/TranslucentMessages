@@ -150,6 +150,7 @@
 
 @interface CKUITheme : NSObject
 - (id)entryFieldHighlightedButtonColor;
+-(UIColor *)messagesControllerBackgroundColor;
 @end
 
 @interface CKUIBehavior : NSObject
