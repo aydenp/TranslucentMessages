@@ -524,7 +524,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 }
 
 -(UIColor *)backgroundColor {
-    return [UIColor clearColor];
+    return [[NSClassFromString(@"CKUIBehavior") currentTheme] messagesControllerBackgroundColor];
 }
 
 -(void)setBackgroundColor:(UIColor *)color {
