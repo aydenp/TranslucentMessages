@@ -566,7 +566,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %hook UIKBRenderConfig
 
 - (NSInteger)backdropStyle {
-    return 2;
+    return 2060;
 }
 
 %end
