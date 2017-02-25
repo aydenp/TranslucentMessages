@@ -566,7 +566,7 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %hook UIKBRenderConfig
 
 - (NSInteger)backdropStyle {
-    return 2060;
+    return [NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? 2030 : 2060;
 }
 
 %end
