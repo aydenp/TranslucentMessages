@@ -24,6 +24,9 @@
 #import <Preferences/PSListController.h>
 #import <Preferences/PSSpecifier.h>
 #import <Preferences/PSSwitchTableCell.h>
+#import "DDCreditService.h"
+#import "DDCreditOption.h"
+#import "DDCreditCell.h"
 
 #define HEADER_HEIGHT 150.0f
 
@@ -87,28 +90,8 @@
 	}
 }
 
-- (void)openWebsite {
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://applebetas.tk?rf=tm-prefs"]];
-}
-
 - (void)openDonate {
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"https://www.paypal.me/AppleBetasPay"]];
-}
-
-- (void)openTwitter {
-	NSURL *url;
-	
-	if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tweetbot:"]]) {
-		url = [NSURL URLWithString:@"tweetbot:///user_profile/AppleBetasDev"];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitterrific:"]]) {
-		url = [NSURL URLWithString:@"twitterrific:///profile?screen_name=AppleBetasDev"];
-	} else if ([[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"twitter:"]]) {
-		url = [NSURL URLWithString:@"twitter://user?screen_name=AppleBetasDev"];
-	} else {
-		url = [NSURL URLWithString:@"http://twitter.com/AppleBetasDev"];
-	}
-		
-	[[UIApplication sharedApplication] openURL:url];
 }
 
 @end

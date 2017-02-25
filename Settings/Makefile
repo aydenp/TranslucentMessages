@@ -6,7 +6,7 @@ include $(THEOS)/makefiles/common.mk
 
 BUNDLE_NAME = TranslucentMessagesSettings
 $(BUNDLE_NAME)_CFLAGS = -fobjc-arc
-$(BUNDLE_NAME)_FILES = TranslucentMessagesSettings.mm
+$(BUNDLE_NAME)_FILES = TranslucentMessagesSettings.mm DDCreditService.m DDCreditOption.m DDCreditCell.m
 $(BUNDLE_NAME)_INSTALL_PATH = /Library/PreferenceBundles
 $(BUNDLE_NAME)_PRIVATE_FRAMEWORKS = Preferences
 

@@ -179,6 +179,13 @@
 - (void)terminateWithSuccess;
 @end
 
+@interface UIKeyboardPredictionView : UIView
+@end
+
+@interface UIDevice (GraphicsQuality)
+-(long long)_graphicsQuality;
+@end
+
 // MARK: - GroupMe Support
 
 @interface GMEmptyView : UIView

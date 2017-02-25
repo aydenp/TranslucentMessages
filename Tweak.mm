@@ -548,6 +548,51 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %end
 
+// MARK: - Keyboard Changes
+
+%hook UIKBRenderFactory
+
++ (NSInteger)_graphicsQuality {
+    static NSInteger keyboardGraphicsQuality;
+    static dispatch_once_t onceToken = 0;
+    dispatch_once(&onceToken, ^{
+        keyboardGraphicsQuality = [[UIDevice currentDevice] _graphicsQuality];
+    });
+    return keyboardGraphicsQuality;
+}
+
+%end
+
+%hook UIKBRenderConfig
+
+- (NSInteger)backdropStyle {
+    return 2;
+}
+
+%end
+
+%hook UIKeyboardPredictionView
+
+-(id)initWithFrame:(CGRect)arg1 {
+    self = %orig;
+    UIView *darkeningView = [[UIView alloc] initWithFrame:self.bounds];
+    [darkeningView setBackgroundColor:[UIColor colorWithWhite:0 alpha:0.25]];
+    // im fucking lazy deal with it
+    [darkeningView setTag:49203];
+    [self addSubview:darkeningView];
+    return self;
+}
+
+-(void)layoutSubviews {
+    %orig;
+    UIView *darkeningView = [self viewWithTag:49203];
+    if(darkeningView) {
+        [darkeningView setFrame:self.bounds];
+    }
+}
+
+%end
+
 %end
 
 %group PreiOS10

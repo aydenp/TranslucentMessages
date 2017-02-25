@@ -1,7 +1,7 @@
 Package: applebetas.ios.tweak.translucentmessages
 Name: TranslucentMessages
-Depends: mobilesubstrate, firmware (>= 9.0), preferenceloader
-Version: 1.0.2
+Depends: mobilesubstrate, firmware (>= 10.0), preferenceloader
+Version: 1.0.3
 Architecture: iphoneos-arm
 Description: Adds a beautiful blurred effect to your messages app and more, letting you see your wallpaper through them.
 Maintainer: AppleBetas

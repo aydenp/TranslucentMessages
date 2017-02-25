@@ -26,77 +26,118 @@
 			<key>PostNotification</key>
 			<string>applebetas.ios.tweaks.translucentmessages.changed</string>
 		</dict>
-        <dict>
-            <key>footerAlignment</key>
-            <integer>1</integer>
-            <key>footerText</key>
-            <string>Tip: TranslucentMessages can combine with DarkMessages by Sticktron to create a vibrant and beautiful dark mode. DarkMessages is available in BigBoss!</string>
-            <key>cell</key>
-            <string>PSGroupCell</string>
-        </dict>
-        <dict>
-            <key>cell</key>
-            <string>PSSwitchCell</string>
-            <key>cellClass</key>
-            <string>PSSwitchTableCell</string>
-            <key>label</key>
-            <string>Blur Wallpaper</string>
-            <key>key</key>
-            <string>BlurWallpaper</string>
-            <key>defaults</key>
-            <string>applebetas.ios.tweaks.translucentmessages</string>
-            <key>default</key>
-            <true/>
-            <key>PostNotification</key>
-            <string>applebetas.ios.tweaks.translucentmessages.changed</string>
-        </dict>
 		<dict>
-			<key>label</key>
-			<string>Support</string>
+			<key>footerAlignment</key>
+			<integer>1</integer>
+			<key>footerText</key>
+			<string>Tip: TranslucentMessages can combine with DarkMessages by Sticktron to create a vibrant and beautiful dark mode. DarkMessages is available in BigBoss!</string>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
-			<key>action</key>
-			<string>openTwitter</string>
-			<key>label</key>
-			<string>Contact me on Twitter</string>
 			<key>cell</key>
-			<string>PSButtonCell</string>
+			<string>PSSwitchCell</string>
+			<key>cellClass</key>
+			<string>PSSwitchTableCell</string>
+			<key>label</key>
+			<string>Blur Wallpaper</string>
+			<key>key</key>
+			<string>BlurWallpaper</string>
+			<key>defaults</key>
+			<string>applebetas.ios.tweaks.translucentmessages</string>
+			<key>default</key>
+			<true/>
+			<key>PostNotification</key>
+			<string>applebetas.ios.tweaks.translucentmessages.changed</string>
 		</dict>
 		<dict>
-			<key>action</key>
-			<string>openEmail</string>
 			<key>label</key>
-			<string>Email me</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
-		</dict>
-		<dict>
+			<string>Credits</string>
+			<key>footerText</key>
+			<string>© AppleBetas Development 2017</string>
 			<key>cell</key>
 			<string>PSGroupCell</string>
 		</dict>
 		<dict>
-			<key>action</key>
-			<string>openWebsite</string>
-			<key>label</key>
-			<string>My Website</string>
-			<key>cell</key>
-			<string>PSButtonCell</string>
+			<key>creditOptions</key>
+			<array>
+				<dict>
+					<key>service</key>
+					<string>website</string>
+					<key>username</key>
+					<string>https://www.applebetas.tk/</string>
+				</dict>
+				<dict>
+					<key>service</key>
+					<string>twitter</string>
+					<key>username</key>
+					<string>AppleBetasDev</string>
+				</dict>
+				<dict>
+					<key>service</key>
+					<string>email</string>
+					<key>username</key>
+					<string>applebetas+tmsprq@icloud.com</string>
+				</dict>
+				<dict>
+					<key>service</key>
+					<string>reddit</string>
+					<key>username</key>
+					<string>AppleBetas</string>
+				</dict>
+				<dict>
+					<key>service</key>
+					<string>paypal</string>
+					<key>username</key>
+					<string>AppleBetasPay</string>
+				</dict>
+				<dict>
+					<key>service</key>
+					<string>github</string>
+					<key>username</key>
+					<string>AppleBetas</string>
+				</dict>
+				<dict>
+					<key>service</key>
+					<string>instagram</string>
+					<key>username</key>
+					<string>AppleBetas</string>
+				</dict>
+				<dict>
+					<key>forcedFormattedUsername</key>
+					<string>AppleBetas</string>
+					<key>service</key>
+					<string>googlePlus</string>
+					<key>username</key>
+					<string>101720869338481663975</string>
+				</dict>
+				<dict>
+					<key>forcedFormattedUsername</key>
+					<string>AppleBetas</string>
+					<key>service</key>
+					<string>youtube</string>
+					<key>username</key>
+					<string>channel/UCWNX3hf4I6v3acsZfsMmmsg</string>
+				</dict>
+			</array>
+			<key>avatarImage</key>
+			<string>Avatar-AB.jpg</string>
+			<key>creditPosition</key>
+			<string>Developer</string>
+			<key>creditName</key>
+			<string>AppleBetas</string>
+			<key>height</key>
+			<integer>88</integer>
+			<key>cellClass</key>
+			<string>DDCreditCell</string>
 		</dict>
 		<dict>
 			<key>action</key>
 			<string>openDonate</string>
 			<key>label</key>
-			<string>Donate</string>
+			<string>Donate for my efforts</string>
 			<key>cell</key>
 			<string>PSButtonCell</string>
-		</dict>
-		<dict>
-			<key>cell</key>
-			<string>PSGroupCell</string>
-			<key>footerText</key>
-			<string>© AppleBetas Development 2017</string>
 		</dict>
 	</array>
 </dict>
