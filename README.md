@@ -16,7 +16,7 @@ Oh no! It's best if you do one of the following:
 Don't want to build from source? You can download from any one of the following places:
 
 1. BigBoss
-2. [My repo](https://repo.applebetas.tk]
+2. [My repo](https://repo.applebetas.tk)
 
 ## Licensing
 
