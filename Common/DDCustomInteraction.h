@@ -1,6 +1,6 @@
 //
-//  DDCreditService.h
-//  DDCreditCell
+//  DDCustomInteraction.h
+//  TranslucentMessages
 //
 //  Copyright (c) 2017 Dynastic Development
 //
@@ -23,24 +23,19 @@
 //  SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "DDCreditOption.h"
+#import <UIKit/UIKit.h>
+#import <QuartzCore/QuartzCore.h>
+#import "../Headers/SMSHeaders.h"
 
-@class DDCreditOption;
+@interface DDCustomInteraction : UIPercentDrivenInteractiveTransition <UIGestureRecognizerDelegate>
+@property (nonatomic) BOOL interactionInProgress;
+@property (nonatomic) BOOL _shouldCompleteTransition;
+@property (nonatomic) BOOL _couldPossiblyCompleteTransition;
+@property (nonatomic) CFTimeInterval transitionStartTime;
+@property (nonatomic, strong) UIViewController *wasViewController;
+@property (nonatomic, strong) UINavigationController *viewController;
 
-@interface DDCreditService : NSObject
-@property (strong, nonatomic) NSString *usernameFormatter;
-@property (strong, nonatomic) NSString *actionTitleFormatter;
-@property (strong, nonatomic) NSArray *linkFormatters;
-@property (strong, nonatomic) NSString *imageName;
-
-- (instancetype)initWithUsernameFormatter:(NSString *)usernameFormatter actionTitleFormatter:(NSString *)actionTitleFormatter linkFormatters:(NSArray *)linkFormatters imageName:(NSString *)imageName;
-- (instancetype)initWithActionTitleFormatter:(NSString *)actionTitleFormatter linkFormatters:(NSArray *)linkFormatters imageName:(NSString *)imageName;
-
-- (NSString *)getFormattedUsernameForOption:(DDCreditOption *)option;
-- (NSString *)getActionTitleForOption:(DDCreditOption *)option;
-- (NSArray *)getLinksForOption:(DDCreditOption *)option;
-
-// Pre-set:
-+ (DDCreditService *)serviceWithName:(NSString *)name;
+-(void)wireToViewController:(UINavigationController *)viewController;
+-(void)prepareGestureRecognizerInView:(UIView *)view;
+-(void)handleGesture:(UIScreenEdgePanGestureRecognizer *)gestureRecognizer;
 @end

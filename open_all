@@ -1,2 +1,2 @@
 #!/bin/sh
-open *.plist *.mm *.h *.m Makefile control -a Xcode
+open *.{plist,xm} */*.{plist,mm,h,m} Makefile control -a Xcode

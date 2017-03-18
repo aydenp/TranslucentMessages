@@ -1,6 +1,6 @@
 //
-//  DDCreditService.h
-//  DDCreditCell
+//  UIBackgroundStyle.h
+//  TranslucentMessages
 //
 //  Copyright (c) 2017 Dynastic Development
 //
@@ -23,24 +23,18 @@
 //  SOFTWARE.
 //
 
-#import <Foundation/Foundation.h>
-#import "DDCreditOption.h"
+#import <UIKit/UIKit.h>
 
-@class DDCreditOption;
+typedef NS_ENUM(NSUInteger, UIBackgroundStyle) {
+    UIBackgroundStyleDefault,
+    UIBackgroundStyleTransparent,
+    UIBackgroundStyleLightBlur,
+    UIBackgroundStyleDarkBlur,
+    UIBackgroundStyleDarkTranslucent,
+    UIBackgroundStyleExtraDarkBlur,
+    UIBackgroundStyleBlur
+};
 
-@interface DDCreditService : NSObject
-@property (strong, nonatomic) NSString *usernameFormatter;
-@property (strong, nonatomic) NSString *actionTitleFormatter;
-@property (strong, nonatomic) NSArray *linkFormatters;
-@property (strong, nonatomic) NSString *imageName;
-
-- (instancetype)initWithUsernameFormatter:(NSString *)usernameFormatter actionTitleFormatter:(NSString *)actionTitleFormatter linkFormatters:(NSArray *)linkFormatters imageName:(NSString *)imageName;
-- (instancetype)initWithActionTitleFormatter:(NSString *)actionTitleFormatter linkFormatters:(NSArray *)linkFormatters imageName:(NSString *)imageName;
-
-- (NSString *)getFormattedUsernameForOption:(DDCreditOption *)option;
-- (NSString *)getActionTitleForOption:(DDCreditOption *)option;
-- (NSArray *)getLinksForOption:(DDCreditOption *)option;
-
-// Pre-set:
-+ (DDCreditService *)serviceWithName:(NSString *)name;
+@interface UIApplication (UIBackgroundStyle)
+-(void)_setBackgroundStyle:(UIBackgroundStyle)style;
 @end

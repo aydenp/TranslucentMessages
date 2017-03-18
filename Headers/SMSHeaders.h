@@ -1,31 +1,29 @@
-// SMSHeaders.h
-// TranslucentApps
 //
-// Copyright (c) 2017 Dynastic Development
+//  SMSHeaders.h
+//  TranslucentMessages
 //
-// Permission is hereby granted, free of charge, to any person obtaining a copy
-// of this software and associated documentation files (the "Software"), to deal
-// in the Software without restriction, including without limitation the rights
-// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-// copies of the Software, and to permit persons to whom the Software is
-// furnished to do so, subject to the following conditions:
+//  Copyright (c) 2017 Dynastic Development
 //
-// The above copyright notice and this permission notice shall be included in all
-// copies or substantial portions of the Software.
+//  Permission is hereby granted, free of charge, to any person obtaining a copy
+//  of this software and associated documentation files (the "Software"), to deal
+//  in the Software without restriction, including without limitation the rights
+//  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+//  copies of the Software, and to permit persons to whom the Software is
+//  furnished to do so, subject to the following conditions:
 //
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-// SOFTWARE.
+//  The above copyright notice and this permission notice shall be included in all
+//  copies or substantial portions of the Software.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+//  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+//  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+//  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+//  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+//  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+//  SOFTWARE.
+//
 
 #import <UIKit/UIKit.h>
-#import "DDCustomAnimator.h"
-#import "DDCustomInteraction.h"
-
-@class DDCustomInteraction;
 
 @interface SMSApplication : UIApplication {
     UIWindow* _window;
@@ -41,22 +39,11 @@
 @end
 
 @interface CKNavigationController : UINavigationController
--(void)DDCommonInit;
 @end
 
 @interface CKMessagesController : UISplitViewController
 -(CKNavigationController *)chatNavigationController;
 -(CKNavigationController *)conversationListNavigationController;
--(DDCustomInteraction *)interactionController;
--(void)setInteractionController:(DDCustomInteraction *)obj;
--(DDCustomAnimator *)pushAnimator;
--(void)setPushAnimator:(DDCustomAnimator *)obj;
--(DDCustomAnimator *)popAnimator;
--(void)setPopAnimator:(DDCustomAnimator *)obj;
--(DDCustomAnimator *)pushCurvedAnimator;
--(void)setPushCurvedAnimator:(DDCustomAnimator *)obj;
--(DDCustomAnimator *)popCurvedAnimator;
--(void)setPopCurvedAnimator:(DDCustomAnimator *)obj;
 @end
 
 @interface CKStarkConversationListViewController : UITableViewController
@@ -102,34 +89,19 @@
 -(UIView *)grayscaleTintView;
 -(void)setGrayscaleTintView:(UIView *)arg1;
 -(void)setStyle:(long long)arg1 ;
-    
-
--(BOOL)DDSpecialEffectsActive;
--(void)setDDSpecialEffectsActive:(BOOL)active;
-
--(BOOL)DDIsMessageEntryView;
--(void)setDDIsMessageEntryView:(BOOL)isMessageEntryView;
-    
--(void)DDRemovePreservationView;
 @end
 
 @interface CKMessageEntryView : UIView {
     _UIBackdropView * _backdropView;
 }
--(void)DDInitialize;
 -(BOOL)shouldConfigureForFullscreenAppView;
 -(_UIBackdropView *)backdropView;
-
--(BOOL)DDSpecialEffectsActive;
--(void)setDDSpecialEffectsActive:(BOOL)active;
 @end
 
 @interface _UIBackdropEffectView : UIView
 @end
 
 @interface _UIBarBackground : UIView
--(BOOL)DDIsInAvatarNavigationBar;
--(void)setDDIsInAvatarNavigationBar:(BOOL)isInAvatarNavigationBar;
 @end
 
 @interface CKMessageEntryTextView : UITextView
@@ -145,12 +117,6 @@
 -(void)setCkTintColor:(UIColor *)arg1;
 -(UIColor *)ckTintColor;
 -(long long)entryViewButtonType;
-@end
-
-@interface UISearchBar (DDConvoSearchBar)
--(BOOL)DDConvoSearchBar;
--(void)setDDConvoSearchBar:(BOOL)convoSearchBar;
--(void)DDCommonInit;
 @end
 
 @interface CKUITheme : NSObject
@@ -189,12 +155,6 @@
 
 @interface UIDevice (GraphicsQuality)
 -(long long)_graphicsQuality;
-@end
-
-@interface _UIBackdropView (DDCommonInit)
--(void)DDCommonInit;
--(void)DDAppBackgrounding:(NSNotification *)notif;
--(void)DDAppResumed:(NSNotification *)notif;
 @end
 
 // MARK: - GroupMe Support
