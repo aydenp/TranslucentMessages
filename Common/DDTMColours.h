@@ -24,7 +24,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Headers/UIBackgroundStyle.h"
+#import "../Headers/UIBackgroundStyle.h"
 
 @interface DDTMColours : NSObject
 +(UIBackgroundStyle)blurStyle;

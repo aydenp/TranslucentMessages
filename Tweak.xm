@@ -26,7 +26,6 @@
 #import <UIKit/UIKit.h>
 #import <objc/runtime.h>
 #import "Common/DDTMCommon.h"
-#import "DDTMColours.h"
 #import "Headers/UIBackgroundStyle.h"
 #import "Headers/SMSHeaders.h"
 #import "Headers/SMSCategories.h"

@@ -1,2 +1,0 @@
-#!/bin/sh
-open *.{plist,xm} */*.{plist,mm,h,m} Makefile control -a Xcode
