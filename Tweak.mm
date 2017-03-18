@@ -163,49 +163,96 @@ static void settingsChanged(CFNotificationCenterRef center,
 
 %hook _UIBackdropView
 
--(UIView *)colorTintView {
-    UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView]) {
-        [arg1 setHidden:YES];
-    }
-    return arg1;
+-(id)initWithFrame:(CGRect)arg1 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
 }
 
--(void)setColorTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView]) {
-        [arg1 setHidden:YES];
-    }
-    %orig;
+-(id)init {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
 }
 
--(UIView *)colorBurnTintView {
-    UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView]) {
-        [arg1 setHidden:YES];
-    }
-    return arg1;
+-(id)initWithFrame:(CGRect)arg1 style:(long long)arg2 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
 }
 
--(void)setColorBurnTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView]) {
-        [arg1 setHidden:YES];
-    }
-    %orig;
+-(id)initWithStyle:(long long)arg1 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
 }
 
--(UIView *)grayscaleTintView {
-    UIView *arg1 = %orig;
-    if([self DDIsMessageEntryView]) {
-        [arg1 setHidden:YES];
-    }
-    return arg1;
+-(id)initWithPrivateStyle:(long long)arg1 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
 }
 
--(void)setGrayscaleTintView:(UIView *)arg1 {
-    if([self DDIsMessageEntryView]) {
-        [arg1 setHidden:YES];
+-(id)initWithSettings:(id)arg1 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)arg1 privateStyle:(long long)arg2 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)arg1 autosizesToFitSuperview:(BOOL)arg2 settings:(id)arg3 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
+}
+
+-(id)initWithFrame:(CGRect)arg1 settings:(id)arg2 {
+    self = %orig;
+    [self DDCommonInit];
+    return self;
+}
+
+%new
+-(void)DDCommonInit {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DDAppBackgrounding:) name:@"UIApplicationWillResignActiveNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(DDAppResumed:) name:@"UIApplicationDidBecomeActiveNotification" object:nil];
+}
+
+%new
+-(void)DDAppBackgrounding:(NSNotification *)notif {
+    %log;
+    [self DDRemovePreservationView];
+    UIGraphicsBeginImageContextWithOptions(self.bounds.size, NO, [UIScreen mainScreen].scale);
+    [self drawViewHierarchyInRect:self.bounds afterScreenUpdates:NO];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    CALayer *imageLayer = [[CALayer alloc] init];
+    imageLayer.frame = self.bounds;
+    imageLayer.zPosition = MAXFLOAT;
+    imageLayer.contents = (id) image.CGImage;
+    imageLayer.name = @"BlurPreservation";
+    [self.layer addSublayer:imageLayer];
+}
+
+%new
+-(void)DDAppResumed:(NSNotification *)notif {
+    %log;
+    [self DDRemovePreservationView];
+}
+
+%new
+-(void)DDRemovePreservationView {
+    for (CALayer *layer in self.layer.sublayers) {
+        if ([layer.name isEqualToString:@"BlurPreservation"]) {
+            [layer removeFromSuperlayer];
+            break;
+        }
     }
-    %orig;
 }
 
 %new
@@ -566,7 +613,11 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 %hook UIKBRenderConfig
 
 - (NSInteger)backdropStyle {
-    return [NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? 2030 : 2060;
+    return [NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? 2030 : 3900;
+}
+
++(long long)backdropStyleForStyle:(long long)arg1 quality:(long long)arg2 {
+    return %orig([NSClassFromString(@"CKUIBehavior") hasDarkTheme] ? 2030 : 3900, arg2);
 }
 
 %end
@@ -798,6 +849,10 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 -(long long)toFieldBackdropStyle {
     return 10100;
+}
+
+-(_UIBackdropViewSettings *)entryViewBackdropSettings {
+    return [_UIBackdropViewSettings settingsForStyle:2];
 }
 
 %end

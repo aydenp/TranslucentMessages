@@ -84,6 +84,7 @@
 -(void)setGrayscaleTintMaskAlpha:(double)arg1;
 -(void)setColorTint:(UIColor *)arg1 ;
 -(void)setColorTintAlpha:(double)arg1 ;
++(_UIBackdropViewSettings *)settingsForStyle:(long long)arg1 ;
 @end
 
 @interface UIVisualEffect (EffectSettings)
@@ -100,12 +101,16 @@
 -(void)setColorBurnTintView:(UIView *)arg1;
 -(UIView *)grayscaleTintView;
 -(void)setGrayscaleTintView:(UIView *)arg1;
+-(void)setStyle:(long long)arg1 ;
+    
 
 -(BOOL)DDSpecialEffectsActive;
 -(void)setDDSpecialEffectsActive:(BOOL)active;
 
 -(BOOL)DDIsMessageEntryView;
 -(void)setDDIsMessageEntryView:(BOOL)isMessageEntryView;
+    
+-(void)DDRemovePreservationView;
 @end
 
 @interface CKMessageEntryView : UIView {
@@ -184,6 +189,12 @@
 
 @interface UIDevice (GraphicsQuality)
 -(long long)_graphicsQuality;
+@end
+
+@interface _UIBackdropView (DDCommonInit)
+-(void)DDCommonInit;
+-(void)DDAppBackgrounding:(NSNotification *)notif;
+-(void)DDAppResumed:(NSNotification *)notif;
 @end
 
 // MARK: - GroupMe Support
