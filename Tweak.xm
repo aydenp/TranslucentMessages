@@ -643,115 +643,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %end
 
-%end
-
-%group PreiOS10
-
-%hook CKUIBehavior
-
-%new
-+(CKUITheme *)currentTheme {
-    return nil;
-}
-
-%new
-+(BOOL)hasDarkTheme {
-    return NO;
-}
-
--(UIColor *)messagesControllerBackgroundColor {
-    return [DDTMColours viewBackgroundColour];
-}
-
--(UIColor *)transcriptBackgroundColor {
-    return [DDTMColours viewBackgroundColour];
-}
-
--(UIColor *)detailsBackgroundColor {
-    return [DDTMColours viewBackgroundColour];
-}
-
--(UIColor *)conversationListSenderColor {
-    return [DDTMColours listTitleColour];
-}
-
--(UIColor *)conversationListSummaryColor {
-    return [DDTMColours listSubtitleColour];
-}
-
--(UIColor *)conversationListDateColor {
-    return [DDTMColours listSubtitleColour];
-}
-
--(id)gray_balloonColors {
-    return @[[UIColor colorWithWhite:1 alpha:0.65], [UIColor colorWithWhite:1 alpha:0.5]];
-}
-
--(UIColor *)transcriptTextColor {
-    return [DDTMColours insideChatViewLabelColour];
-}
-
--(UIColor *)transcriptDeemphasizedTextColor {
-    return [DDTMColours insideChatViewLabelSubtleColour];
-}
-
--(UIColor *)entryFieldCoverFillColor {
-    return [DDTMColours entryFieldCoverFillColour];
-}
-
--(UIColor *)entryFieldCoverBorderColor {
-    return [DDTMColours entryFieldCoverBorderColour];
-}
-
--(UIKeyboardAppearance)keyboardAppearance {
-    return UIKeyboardAppearanceDark;
-}
-
--(UIColor *)entryFieldBackgroundColor {
-    return [UIColor clearColor];
-}
-
--(UIColor *)entryFieldTextColor {
-    return [DDTMColours entryFieldTextColour];
-}
-
--(UIColor *)entryFieldGrayColor {
-    return [DDTMColours entryFieldPlaceholderColour];
-}
-
--(long long)toFieldBackdropStyle {
-    return 10100;
-}
-
-%end
-
-%hook CKConversationListCell
-
--(UIColor *)backgroundColor {
-    return [UIColor clearColor];
-}
-
--(void)setBackgroundColor:(UIColor *)color {
-    %orig([UIColor clearColor]);
-}
-
-%end
-
-%hook CKConversationListController
-
--(void)viewDidLayoutSubviews {
-    %orig;
-    UITableView *table = MSHookIvar<UITableView *>(self, "_table");
-    [table setBackgroundColor:[UIColor clearColor]];
-    [table setSeparatorColor:[DDTMColours separatorColour]];
-}
-
-%end
-
-%end
-
-%group PostiOS10
-
 %hook CKUIBehavior
 
 %new
@@ -995,11 +886,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
         
         if (isEnabled) {
             %init(Tweak);
-            if([NSProcessInfo.processInfo isOperatingSystemAtLeastVersion:(NSOperatingSystemVersion){10,0,0}]) {
-                %init(PostiOS10);
-            } else {
-                %init(PreiOS10);
-            }
         }
         
         // listen for notifications from settings
