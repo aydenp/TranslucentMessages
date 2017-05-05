@@ -52,4 +52,5 @@
 +(UIColor *)searchBarFieldTintColour;
 +(UIColor *)darkSearchBarTintColour;
 +(UIColor *)darkSearchBarFieldTintColour;
++(UIColor *)lightAppTintColour;
 @end

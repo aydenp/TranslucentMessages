@@ -745,6 +745,10 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     return [_UIBackdropViewSettings settingsForStyle:2];
 }
 
+-(UIColor *)appTintColor {
+    return [DDTMColours lightAppTintColour];
+}
+
 %end
 
 %hook CKUIThemeDark

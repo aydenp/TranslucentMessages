@@ -127,4 +127,8 @@
     return [UIColor colorWithWhite:1 alpha:0.1];
 }
 
++(UIColor *)lightAppTintColour {
+    return [UIColor colorWithRed:0.075 green:0.54 blue:1 alpha:1];
+}
+
 @end
