@@ -18,4 +18,4 @@ SUBPROJECTS += Settings
 include $(THEOS_MAKE_PATH)/aggregate.mk
 
 after-install::
-	install.exec "killall MobileSMS Preferences && sblaunch com.apple.MobileSMS"
+	install.exec "killall MobileSMS Preferences; sblaunch com.apple.MobileSMS"

@@ -876,6 +876,33 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %end
 
+%hook PRMonogramView
+
+-(void)didMoveToWindow {
+    %orig;
+    if([NSStringFromClass([[[(UIView *)self superview] superview] class]) isEqualToString:@"CKAvatarView"]) {
+        CAGradientLayer *gradientLayer = MSHookIvar<CAGradientLayer *>(self, "_circleGradientLayer");
+        if(![NSClassFromString(@"CKUIBehavior") hasDarkTheme] && [NSStringFromClass([[[[[(UIView *)self superview] superview] superview] superview] class]) isEqualToString:@"CKAvatarCollectionViewCell"]) { // is light mode & in navbar
+            gradientLayer.colors = @[(id)[UIColor colorWithWhite:0 alpha:0.15].CGColor, (id)[UIColor colorWithWhite:0 alpha:0.05].CGColor];
+        } else {
+            gradientLayer.colors = @[(id)[UIColor colorWithWhite:1 alpha:0.1].CGColor, (id)[UIColor colorWithWhite:1 alpha:0.25].CGColor];
+        }
+    }
+}
+
+%end
+
+%hook CKAvatarCollectionViewCell
+
+-(void)didMoveToWindow {
+    %orig;
+    for(UIView *subview in [(UIView *)self subviews]) {
+        [subview setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
+%end
+
 %end
 
 // MARK: - Loading
@@ -884,9 +911,8 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     @autoreleasepool {
         loadSettings();
         
-        if (isEnabled) {
-            %init(Tweak);
-        }
+        dlopen("/System/Library/PrivateFrameworks/PersonaUI.framework/PersonaUI", RTLD_LAZY);
+        if (isEnabled) %init(Tweak);
         
         // listen for notifications from settings
         CFNotificationCenterAddObserver(CFNotificationCenterGetDarwinNotifyCenter(),
