@@ -26,6 +26,5 @@
 #import <UIKit/UIKit.h>
 
 @interface UIViewController (DDViewControllerPeekDetection)
--(BOOL)DDPreviewing;
--(void)setDDPreviewing:(BOOL)previewing;
+@property (nonatomic, assign) BOOL DDPreviewing;
 @end

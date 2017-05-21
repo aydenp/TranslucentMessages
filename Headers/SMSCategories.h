@@ -28,14 +28,12 @@
 @class DDCustomInteraction;
 
 @interface _UIBackdropView (TranslucentMessages)
+@property (nonatomic, assign) BOOL DDSpecialEffectsActive;
+@property (nonatomic, assign) BOOL DDIsMessageEntryView;
+
 -(void)DDCommonInit;
 -(void)DDAppBackgrounding:(NSNotification *)notif;
 -(void)DDAppResumed:(NSNotification *)notif;
-
--(BOOL)DDSpecialEffectsActive;
--(void)setDDSpecialEffectsActive:(BOOL)active;
--(BOOL)DDIsMessageEntryView;
--(void)setDDIsMessageEntryView:(BOOL)isMessageEntryView;
 -(void)DDRemovePreservationView;
 @end
 
@@ -44,16 +42,11 @@
 @end
 
 @interface CKMessagesController (TranslucentMessages)
--(DDCustomInteraction *)interactionController;
--(void)setInteractionController:(DDCustomInteraction *)obj;
--(DDCustomAnimator *)pushAnimator;
--(void)setPushAnimator:(DDCustomAnimator *)obj;
--(DDCustomAnimator *)popAnimator;
--(void)setPopAnimator:(DDCustomAnimator *)obj;
--(DDCustomAnimator *)pushCurvedAnimator;
--(void)setPushCurvedAnimator:(DDCustomAnimator *)obj;
--(DDCustomAnimator *)popCurvedAnimator;
--(void)setPopCurvedAnimator:(DDCustomAnimator *)obj;
+@property (nonatomic, retain) DDCustomInteraction *interactionController;
+@property (nonatomic, retain) DDCustomAnimator *pushAnimator;
+@property (nonatomic, retain) DDCustomAnimator *popAnimator;
+@property (nonatomic, retain) DDCustomAnimator *pushCurvedAnimator;
+@property (nonatomic, retain) DDCustomAnimator *popCurvedAnimator;
 @end
 
 @interface CKMessageEntryView (TranslucentMessages)
@@ -63,12 +56,10 @@
 @end
 
 @interface _UIBarBackground (TranslucentMessages)
--(BOOL)DDIsInAvatarNavigationBar;
--(void)setDDIsInAvatarNavigationBar:(BOOL)isInAvatarNavigationBar;
+@property (nonatomic, assign) BOOL DDIsInAvatarNavigationBar;
 @end
 
 @interface UISearchBar (DDConvoSearchBar)
--(BOOL)DDConvoSearchBar;
--(void)setDDConvoSearchBar:(BOOL)convoSearchBar;
+@property (nonatomic, assign) BOOL DDConvoSearchBar;
 -(void)DDCommonInit;
 @end

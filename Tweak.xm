@@ -101,22 +101,13 @@ static void settingsChanged(CFNotificationCenterRef center,
 
 %hook _UIBarBackground
 
+%property (nonatomic, assign) BOOL DDIsInAvatarNavigationBar;
+
 -(id)_blurWithStyle:(long long)arg1 tint:(id)arg2 {
     if([self DDIsInAvatarNavigationBar] && arg1 == 0) {
         return [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
     }
     return %orig;
-}
-
-%new
--(BOOL)DDIsInAvatarNavigationBar {
-    NSNumber *isInAvatarNavigationBar = objc_getAssociatedObject(self, @selector(DDIsInAvatarNavigationBar));
-    return [isInAvatarNavigationBar boolValue];
-}
-
-%new
--(void)setDDIsInAvatarNavigationBar:(BOOL)isInAvatarNavigationBar {
-    objc_setAssociatedObject(self, @selector(DDIsInAvatarNavigationBar), @(isInAvatarNavigationBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 %end
@@ -161,6 +152,9 @@ static void settingsChanged(CFNotificationCenterRef center,
 %end
 
 %hook _UIBackdropView
+
+%property (nonatomic, assign) BOOL DDSpecialEffectsActive;
+%property (nonatomic, assign) BOOL DDIsMessageEntryView;
 
 -(id)initWithFrame:(CGRect)arg1 {
     self = %orig;
@@ -252,28 +246,6 @@ static void settingsChanged(CFNotificationCenterRef center,
             break;
         }
     }
-}
-
-%new
--(BOOL)DDIsMessageEntryView {
-    NSNumber *isMessageEntryView = objc_getAssociatedObject(self, @selector(DDIsMessageEntryView));
-    return [isMessageEntryView boolValue];
-}
-
-%new
--(void)setDDIsMessageEntryView:(BOOL)isMessageEntryView {
-    objc_setAssociatedObject(self, @selector(DDIsMessageEntryView), @(isMessageEntryView), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-%new
--(BOOL)DDSpecialEffectsActive {
-    NSNumber *active = objc_getAssociatedObject(self, @selector(DDSpecialEffectsActive));
-    return [active boolValue];
-}
-
-%new
--(void)setDDSpecialEffectsActive:(BOOL)active {
-    objc_setAssociatedObject(self, @selector(DDSpecialEffectsActive), @(active), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 %end
@@ -394,6 +366,8 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 
 %hook UISearchBar
 
+%property (nonatomic, assign) BOOL DDConvoSearchBar;
+
 %new
 -(void)DDCommonInit {
     [self setBarTintColor:[self barTintColor]];
@@ -415,18 +389,6 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     %orig([self barTintColor]);
 }
 
-%new
--(BOOL)DDConvoSearchBar {
-    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDConvoSearchBar));
-    return [previewing boolValue];
-}
-
-%new
--(void)setDDConvoSearchBar:(BOOL)convoSearchBar {
-    objc_setAssociatedObject(self, @selector(DDConvoSearchBar), @(convoSearchBar), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-    [self DDCommonInit];
-}
-
 %end
 
 %hook CKBrowserFooterTransitionView
@@ -441,6 +403,12 @@ commitViewController:(UIViewController *)viewControllerToCommit {
 // MARK: - Navigation animation & interaction
 
 %hook CKMessagesController
+
+%property (nonatomic, retain) DDCustomInteraction *interactionController;
+%property (nonatomic, retain) DDCustomAnimator *pushAnimator;
+%property (nonatomic, retain) DDCustomAnimator *popAnimator;
+%property (nonatomic, retain) DDCustomAnimator *pushCurvedAnimator;
+%property (nonatomic, retain) DDCustomAnimator *popCurvedAnimator;
 
 -(void)viewDidLoad {
     %orig;
@@ -501,72 +469,13 @@ commitViewController:(UIViewController *)viewControllerToCommit {
     return nil;
 }
 
-%new
--(DDCustomInteraction *)interactionController {
-    return objc_getAssociatedObject(self, @selector(interactionController));
-}
-
-%new
--(void)setInteractionController:(DDCustomInteraction *)obj {
-    objc_setAssociatedObject(self, @selector(interactionController), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-%new
--(DDCustomAnimator *)pushAnimator {
-    return objc_getAssociatedObject(self, @selector(pushAnimator));
-}
-
-%new
--(void)setPushAnimator:(DDCustomAnimator *)obj {
-    objc_setAssociatedObject(self, @selector(pushAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-%new
--(DDCustomAnimator *)popAnimator {
-    return objc_getAssociatedObject(self, @selector(popAnimator));
-}
-
-%new
--(void)setPopAnimator:(DDCustomAnimator *)obj {
-    objc_setAssociatedObject(self, @selector(popAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-%new
--(DDCustomAnimator *)pushCurvedAnimator {
-    return objc_getAssociatedObject(self, @selector(pushCurvedAnimator));
-}
-
-%new
--(void)setPushCurvedAnimator:(DDCustomAnimator *)obj {
-    objc_setAssociatedObject(self, @selector(pushCurvedAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
-%new
--(DDCustomAnimator *)popCurvedAnimator {
-    return objc_getAssociatedObject(self, @selector(popCurvedAnimator));
-}
-
-%new
--(void)setPopCurvedAnimator:(DDCustomAnimator *)obj {
-    objc_setAssociatedObject(self, @selector(popCurvedAnimator), obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
-
 %end
 
 // MARK: - DDViewControllerPeekDetection Hooks
 
 %hook UIViewController
 
-%new
--(BOOL)DDPreviewing {
-    NSNumber *previewing = objc_getAssociatedObject(self, @selector(DDPreviewing));
-    return [previewing boolValue];
-}
-
-%new
--(void)setDDPreviewing:(BOOL)previewing {
-    objc_setAssociatedObject(self, @selector(DDPreviewing), @(previewing), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
-}
+%property (nonatomic, assign) BOOL DDPreviewing;
 
 %end
 
