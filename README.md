@@ -20,4 +20,4 @@ Don't want to build from source? You can download from any one of the following 
 
 ## Licensing
 
-[TranslucentMessages is licensed under the MIT license.](/AppleBetas/TranslucentMessages/tree/master/LICENSE)
+[TranslucentMessages is licensed under the MIT license.](/LICENSE)
