@@ -2,7 +2,8 @@
 
 Make the iOS Messages app translucent!
 
-Welcome to the new repo for TranslucentMessages. I haven't had a chance to write a real readme, so I guess you'll have to deal with this for now.
+Add a stunning new look to your messages. Make your Messages app translucent and blurred so that you can see your wallpaper through it. A complete revamp of the Messages UI, based on whatever wallpaper you have set.
+In addition to that, this tweak is fully compatible with DarkMessages, meaning that when that tweak is enabled, you will see a dark styled blur, both easy on the eyes and beautiful.
 
 ## I found a bug!
 
