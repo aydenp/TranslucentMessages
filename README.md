@@ -1,5 +1,5 @@
 ![Icon](https://repo.applebetas.co/package-data/applebetas.ios.tweak.translucentmessages/icon.png)
-# TranslucentMessages
+# [TranslucentMessages](https://repo.applebetas.co/depiction/applebetas.ios.tweak.translucentmessages/)
 
 Make the iOS Messages app translucent!
 
