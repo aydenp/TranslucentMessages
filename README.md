@@ -1,9 +1,16 @@
+![Icon](https://repo.applebetas.co/package-data/applebetas.ios.tweak.translucentmessages/icon.png)
 # TranslucentMessages
 
 Make the iOS Messages app translucent!
 
 Add a stunning new look to your messages. Make your Messages app translucent and blurred so that you can see your wallpaper through it. A complete revamp of the Messages UI, based on whatever wallpaper you have set.
 In addition to that, this tweak is fully compatible with DarkMessages, meaning that when that tweak is enabled, you will see a dark styled blur, both easy on the eyes and beautiful.
+
+## Screenshots
+
+![Screenshot #1](https://repo.applebetas.co/package-data/applebetas.ios.tweak.translucentmessages/screenshots/1.png)
+
+[View more screenshots »](https://repo.applebetas.co/depiction/applebetas.ios.tweak.translucentmessages/screenshots.html)
 
 ## I found a bug!
 
